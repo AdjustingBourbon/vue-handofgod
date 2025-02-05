@@ -1,0 +1,257 @@
+<html>
+<head>
+<title>App.vue</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d5b778;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bababa;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+.s5 { color: #cf8e6d;}
+.s6 { color: #7a7e85;}
+.s7 { color: #56a8f5;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+App.vue</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;template&gt;</span>
+  <span class="s0">&lt;div&gt;</span>
+    <span class="s0">&lt;div </span><span class="s2">v-if</span><span class="s3">=&quot;</span><span class="s1">!gameMode</span><span class="s3">&quot; </span><span class="s2">class</span><span class="s3">=&quot;input-group&quot;</span><span class="s0">&gt;</span>
+      <span class="s0">&lt;input </span><span class="s2">v-model</span><span class="s3">=&quot;</span><span class="s1">newName</span><span class="s3">&quot; </span><span class="s2">@keyup.enter</span><span class="s3">=&quot;</span><span class="s1">addPerson</span><span class="s3">&quot; </span><span class="s2">placeholder</span><span class="s3">=&quot;输入姓名&quot;</span><span class="s0">&gt;</span>
+      <span class="s0">&lt;button </span><span class="s2">@click</span><span class="s3">=&quot;</span><span class="s1">addPerson</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">添加</span><span class="s0">&lt;/button&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+
+    <span class="s0">&lt;button </span><span class="s2">@click</span><span class="s3">=&quot;</span><span class="s1">toggleGameMode</span><span class="s3">&quot; </span><span class="s2">class</span><span class="s3">=&quot;mode-btn&quot;</span><span class="s0">&gt;</span>
+      <span class="s1">{{ gameMode ? '退出上帝模式' : '进入上帝模式' }}</span>
+    <span class="s0">&lt;/button&gt;</span>
+
+    <span class="s0">&lt;draggable</span>
+        <span class="s2">v-model</span><span class="s3">=&quot;</span><span class="s1">visiblePeople</span><span class="s3">&quot;</span>
+        <span class="s2">@end</span><span class="s3">=&quot;</span><span class="s1">onDragEnd</span><span class="s3">&quot;</span>
+        <span class="s2">item-key</span><span class="s3">=&quot;id&quot;</span>
+        <span class="s2">class</span><span class="s3">=&quot;people-list&quot;</span>
+    <span class="s0">&gt;</span>
+      <span class="s0">&lt;template </span><span class="s2">#item</span><span class="s3">=&quot;</span><span class="s1">{ element, index }</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;div</span>
+            <span class="s2">:class</span><span class="s3">=&quot;</span><span class="s1">[</span><span class="s3">'person-item'</span><span class="s1">, { </span><span class="s3">'highlight'</span><span class="s1">: index === currentIndex }]</span><span class="s3">&quot;</span>
+            <span class="s2">@click</span><span class="s3">=&quot;</span><span class="s1">selectPerson(index)</span><span class="s3">&quot;</span>
+        <span class="s0">&gt;</span>
+          <span class="s0">&lt;span </span><span class="s2">class</span><span class="s3">=&quot;checkmark&quot;</span><span class="s0">&gt;</span><span class="s1">✓</span><span class="s0">&lt;/span&gt;</span>
+          <span class="s0">&lt;span </span><span class="s2">class</span><span class="s3">=&quot;name&quot;</span><span class="s0">&gt;</span><span class="s1">{{ element.name }}</span><span class="s0">&lt;/span&gt;</span>
+          <span class="s0">&lt;button</span>
+              <span class="s2">@click.stop</span><span class="s3">=&quot;</span><span class="s1">handleAction(index)</span><span class="s3">&quot;</span>
+              <span class="s2">:class</span><span class="s3">=&quot;</span><span class="s1">[</span><span class="s3">'action-btn'</span><span class="s1">, { </span><span class="s3">'eliminate-btn'</span><span class="s1">: gameMode }]</span><span class="s3">&quot;</span>
+          <span class="s0">&gt;</span>
+            <span class="s1">{{ gameMode ? '淘汰' : '删除' }}</span>
+          <span class="s0">&lt;/button&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+      <span class="s0">&lt;/template&gt;</span>
+    <span class="s0">&lt;/draggable&gt;</span>
+
+    <span class="s0">&lt;button</span>
+        <span class="s2">@click</span><span class="s3">=&quot;</span><span class="s1">moveHighlight</span><span class="s3">&quot;</span>
+        <span class="s2">class</span><span class="s3">=&quot;move-btn&quot;</span>
+        <span class="s2">:disabled</span><span class="s3">=&quot;</span><span class="s1">visiblePeople.length === </span><span class="s4">0</span><span class="s3">&quot;</span>
+    <span class="s0">&gt;</span>
+      <span class="s1">移动勾号</span>
+    <span class="s0">&lt;/button&gt;</span>
+
+    <span class="s0">&lt;div </span><span class="s2">v-if</span><span class="s3">=&quot;</span><span class="s1">gameMode &amp;&amp; eliminatedPeople.length</span><span class="s3">&quot; </span><span class="s2">class</span><span class="s3">=&quot;eliminated-list&quot;</span><span class="s0">&gt;</span>
+      <span class="s0">&lt;h3&gt;</span><span class="s1">已淘汰名单</span><span class="s0">&lt;/h3&gt;</span>
+      <span class="s0">&lt;div </span><span class="s2">v-for</span><span class="s3">=&quot;</span><span class="s1">person </span><span class="s5">in </span><span class="s1">eliminatedPeople</span><span class="s3">&quot; </span><span class="s2">:key</span><span class="s3">=&quot;</span><span class="s1">person.id</span><span class="s3">&quot; </span><span class="s2">class</span><span class="s3">=&quot;eliminated-item&quot;</span><span class="s0">&gt;</span>
+        <span class="s1">{{ person.name }}</span>
+      <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+  <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/template&gt;</span>
+
+<span class="s0">&lt;script&gt;</span>
+<span class="s5">import </span><span class="s1">draggable from </span><span class="s3">'vuedraggable'</span>
+
+<span class="s5">export default </span><span class="s1">{</span>
+  <span class="s1">components: { draggable },</span>
+  <span class="s1">data() {</span>
+    <span class="s5">return </span><span class="s1">{</span>
+      <span class="s1">newName: </span><span class="s3">''</span><span class="s1">,</span>
+      <span class="s1">people: [],</span>
+      <span class="s1">currentIndex: </span><span class="s4">0</span><span class="s1">,</span>
+      <span class="s1">gameMode: </span><span class="s5">false</span><span class="s1">,</span>
+      <span class="s1">nextId: </span><span class="s4">1</span>
+    <span class="s1">}</span>
+  <span class="s1">},</span>
+  <span class="s1">computed: {</span>
+    <span class="s1">visiblePeople: {</span>
+      <span class="s1">get() {</span>
+        <span class="s5">return this</span><span class="s1">.gameMode</span>
+            <span class="s1">? </span><span class="s5">this</span><span class="s1">.people.filter(p =&gt; !p.eliminated)</span>
+            <span class="s1">: </span><span class="s5">this</span><span class="s1">.people</span>
+      <span class="s1">},</span>
+      <span class="s1">set(value) {</span>
+        <span class="s5">if </span><span class="s1">(</span><span class="s5">this</span><span class="s1">.gameMode) {</span>
+          <span class="s5">const </span><span class="s1">eliminated = </span><span class="s5">this</span><span class="s1">.people.filter(p =&gt; p.eliminated)</span>
+          <span class="s5">this</span><span class="s1">.people = [...value, ...eliminated]</span>
+        <span class="s1">} </span><span class="s5">else </span><span class="s1">{</span>
+          <span class="s5">this</span><span class="s1">.people = value</span>
+        <span class="s1">}</span>
+      <span class="s1">}</span>
+    <span class="s1">},</span>
+    <span class="s1">eliminatedPeople() {</span>
+      <span class="s5">return this</span><span class="s1">.people.filter(p =&gt; p.eliminated)</span>
+    <span class="s1">}</span>
+  <span class="s1">},</span>
+  <span class="s1">methods: {</span>
+    <span class="s1">addPerson() {</span>
+      <span class="s5">if </span><span class="s1">(</span><span class="s5">this</span><span class="s1">.newName.trim()) {</span>
+        <span class="s5">this</span><span class="s1">.people.push({</span>
+          <span class="s1">id: </span><span class="s5">this</span><span class="s1">.nextId++,</span>
+          <span class="s1">name: </span><span class="s5">this</span><span class="s1">.newName.trim(),</span>
+          <span class="s1">eliminated: </span><span class="s5">false</span>
+        <span class="s1">})</span>
+        <span class="s5">this</span><span class="s1">.newName = </span><span class="s3">''</span>
+      <span class="s1">}</span>
+    <span class="s1">},</span>
+    <span class="s1">handleAction(index) {</span>
+      <span class="s5">this</span><span class="s1">.gameMode ? </span><span class="s5">this</span><span class="s1">.eliminatePerson(index) : </span><span class="s5">this</span><span class="s1">.removePerson(index)</span>
+    <span class="s1">},</span>
+    <span class="s1">removePerson(index) {</span>
+      <span class="s5">this</span><span class="s1">.people.splice(index, </span><span class="s4">1</span><span class="s1">)</span>
+      <span class="s5">this</span><span class="s1">.adjustCurrentIndex()</span>
+    <span class="s1">},</span>
+    <span class="s1">eliminatePerson(index) {</span>
+      <span class="s5">this</span><span class="s1">.visiblePeople[index].eliminated = </span><span class="s5">true</span>
+      <span class="s5">this</span><span class="s1">.adjustCurrentIndex()</span>
+    <span class="s1">},</span>
+    <span class="s1">moveHighlight() {</span>
+      <span class="s5">if </span><span class="s1">(</span><span class="s5">this</span><span class="s1">.visiblePeople.length === </span><span class="s4">0</span><span class="s1">) </span><span class="s5">return</span>
+      <span class="s5">this</span><span class="s1">.currentIndex = (</span><span class="s5">this</span><span class="s1">.currentIndex + </span><span class="s4">1</span><span class="s1">) % </span><span class="s5">this</span><span class="s1">.visiblePeople.length</span>
+    <span class="s1">},</span>
+    <span class="s1">selectPerson(index) {</span>
+      <span class="s5">this</span><span class="s1">.currentIndex = index</span>
+    <span class="s1">},</span>
+    <span class="s1">toggleGameMode() {</span>
+      <span class="s5">this</span><span class="s1">.gameMode = !</span><span class="s5">this</span><span class="s1">.gameMode</span>
+      <span class="s5">this</span><span class="s1">.currentIndex = </span><span class="s4">0</span>
+    <span class="s1">},</span>
+    <span class="s1">adjustCurrentIndex() {</span>
+      <span class="s5">if </span><span class="s1">(</span><span class="s5">this</span><span class="s1">.visiblePeople.length === </span><span class="s4">0</span><span class="s1">) {</span>
+        <span class="s5">this</span><span class="s1">.currentIndex = </span><span class="s4">0</span>
+      <span class="s1">} </span><span class="s5">else </span><span class="s1">{</span>
+        <span class="s5">this</span><span class="s1">.currentIndex = Math.min(</span><span class="s5">this</span><span class="s1">.currentIndex, </span><span class="s5">this</span><span class="s1">.visiblePeople.length - </span><span class="s4">1</span><span class="s1">)</span>
+      <span class="s1">}</span>
+    <span class="s1">},</span>
+    <span class="s1">onDragEnd() {</span>
+      <span class="s6">// 自动保持当前选中项的视觉位置</span>
+    <span class="s1">}</span>
+  <span class="s1">}</span>
+<span class="s1">}</span>
+<span class="s0">&lt;/script&gt;</span>
+
+<span class="s0">&lt;style&gt;</span>
+<span class="s1">.</span><span class="s0">input-group </span><span class="s1">{</span>
+  <span class="s2">margin</span><span class="s1">: </span><span class="s4">20</span><span class="s3">px </span><span class="s4">0</span><span class="s1">;</span>
+  <span class="s2">display</span><span class="s1">: </span><span class="s3">flex</span><span class="s1">;</span>
+  <span class="s2">gap</span><span class="s1">: </span><span class="s4">10</span><span class="s3">px</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s0">input </span><span class="s1">{</span>
+  <span class="s2">padding</span><span class="s1">: </span><span class="s4">8</span><span class="s3">px</span><span class="s1">;</span>
+  <span class="s2">border</span><span class="s1">: </span><span class="s4">1</span><span class="s3">px solid </span><span class="s7">#ccc</span><span class="s1">;</span>
+  <span class="s2">border-radius</span><span class="s1">: </span><span class="s4">4</span><span class="s3">px</span><span class="s1">;</span>
+  <span class="s2">flex-grow</span><span class="s1">: </span><span class="s4">1</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s0">button </span><span class="s1">{</span>
+  <span class="s2">padding</span><span class="s1">: </span><span class="s4">8</span><span class="s3">px </span><span class="s4">16</span><span class="s3">px</span><span class="s1">;</span>
+  <span class="s2">border</span><span class="s1">: </span><span class="s3">none</span><span class="s1">;</span>
+  <span class="s2">border-radius</span><span class="s1">: </span><span class="s4">4</span><span class="s3">px</span><span class="s1">;</span>
+  <span class="s2">cursor</span><span class="s1">: </span><span class="s3">pointer</span><span class="s1">;</span>
+  <span class="s2">transition</span><span class="s1">: </span><span class="s3">all </span><span class="s4">0.3</span><span class="s3">s</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">mode-btn </span><span class="s1">{</span>
+  <span class="s2">background</span><span class="s1">: </span><span class="s7">#2196F3</span><span class="s1">;</span>
+  <span class="s2">color</span><span class="s1">: </span><span class="s3">white</span><span class="s1">;</span>
+  <span class="s2">margin-bottom</span><span class="s1">: </span><span class="s4">20</span><span class="s3">px</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">move-btn </span><span class="s1">{</span>
+  <span class="s2">background</span><span class="s1">: </span><span class="s7">#4CAF50</span><span class="s1">;</span>
+  <span class="s2">color</span><span class="s1">: </span><span class="s3">white</span><span class="s1">;</span>
+  <span class="s2">margin</span><span class="s1">: </span><span class="s4">20</span><span class="s3">px </span><span class="s4">0</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">people-list </span><span class="s1">{</span>
+  <span class="s2">display</span><span class="s1">: </span><span class="s3">flex</span><span class="s1">;</span>
+  <span class="s2">flex-direction</span><span class="s1">: </span><span class="s3">column</span><span class="s1">;</span>
+  <span class="s2">gap</span><span class="s1">: </span><span class="s4">10</span><span class="s3">px</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">person-item </span><span class="s1">{</span>
+  <span class="s2">display</span><span class="s1">: </span><span class="s3">flex</span><span class="s1">;</span>
+  <span class="s2">align-items</span><span class="s1">: </span><span class="s3">center</span><span class="s1">;</span>
+  <span class="s2">padding</span><span class="s1">: </span><span class="s4">15</span><span class="s3">px</span><span class="s1">;</span>
+  <span class="s2">background</span><span class="s1">: </span><span class="s7">#f8f8f8</span><span class="s1">;</span>
+  <span class="s2">border-radius</span><span class="s1">: </span><span class="s4">8</span><span class="s3">px</span><span class="s1">;</span>
+  <span class="s2">transition</span><span class="s1">: </span><span class="s3">all </span><span class="s4">0.3</span><span class="s3">s</span><span class="s1">;</span>
+  <span class="s2">position</span><span class="s1">: </span><span class="s3">relative</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">person-item</span><span class="s1">.</span><span class="s0">highlight </span><span class="s1">{</span>
+  <span class="s2">background</span><span class="s1">: </span><span class="s7">#fff9c4</span><span class="s1">;</span>
+  <span class="s2">box-shadow</span><span class="s1">: </span><span class="s4">0 2</span><span class="s3">px </span><span class="s4">8</span><span class="s3">px </span><span class="s0">rgba</span><span class="s1">(</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0.1</span><span class="s1">);</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">checkmark </span><span class="s1">{</span>
+  <span class="s2">opacity</span><span class="s1">: </span><span class="s4">0</span><span class="s1">;</span>
+  <span class="s2">margin-right</span><span class="s1">: </span><span class="s4">15</span><span class="s3">px</span><span class="s1">;</span>
+  <span class="s2">color</span><span class="s1">: </span><span class="s7">#4CAF50</span><span class="s1">;</span>
+  <span class="s2">font-weight</span><span class="s1">: </span><span class="s3">bold</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">highlight </span><span class="s1">.</span><span class="s0">checkmark </span><span class="s1">{</span>
+  <span class="s2">opacity</span><span class="s1">: </span><span class="s4">1</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">name </span><span class="s1">{</span>
+  <span class="s2">flex-grow</span><span class="s1">: </span><span class="s4">1</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">action-btn </span><span class="s1">{</span>
+  <span class="s2">background</span><span class="s1">: </span><span class="s7">#ff4444</span><span class="s1">;</span>
+  <span class="s2">color</span><span class="s1">: </span><span class="s3">white</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">action-btn</span><span class="s1">.</span><span class="s0">eliminate-btn </span><span class="s1">{</span>
+  <span class="s2">background</span><span class="s1">: </span><span class="s7">#ff8800</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">eliminated-list </span><span class="s1">{</span>
+  <span class="s2">margin-top</span><span class="s1">: </span><span class="s4">30</span><span class="s3">px</span><span class="s1">;</span>
+  <span class="s2">padding</span><span class="s1">: </span><span class="s4">20</span><span class="s3">px</span><span class="s1">;</span>
+  <span class="s2">background</span><span class="s1">: </span><span class="s7">#fff3e0</span><span class="s1">;</span>
+  <span class="s2">border-radius</span><span class="s1">: </span><span class="s4">8</span><span class="s3">px</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">eliminated-item </span><span class="s1">{</span>
+  <span class="s2">padding</span><span class="s1">: </span><span class="s4">10</span><span class="s3">px</span><span class="s1">;</span>
+  <span class="s2">color</span><span class="s1">: </span><span class="s7">#666</span><span class="s1">;</span>
+  <span class="s2">text-decoration</span><span class="s1">: </span><span class="s3">line-through</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s0">button</span><span class="s1">:</span><span class="s0">hover </span><span class="s1">{</span>
+  <span class="s2">opacity</span><span class="s1">: </span><span class="s4">0.9</span><span class="s1">;</span>
+  <span class="s2">transform</span><span class="s1">: </span><span class="s0">translateY</span><span class="s1">(-</span><span class="s4">1</span><span class="s3">px</span><span class="s1">);</span>
+<span class="s1">}</span>
+
+<span class="s0">button</span><span class="s1">:</span><span class="s0">disabled </span><span class="s1">{</span>
+  <span class="s2">background</span><span class="s1">: </span><span class="s7">#ccc</span><span class="s1">;</span>
+  <span class="s2">cursor</span><span class="s1">: </span><span class="s3">not-allowed</span><span class="s1">;</span>
+<span class="s1">}</span>
+<span class="s0">&lt;/style&gt;</span></pre>
+</body>
+</html>

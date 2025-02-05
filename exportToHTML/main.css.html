@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>main.css</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #6aab73;}
+.s3 { color: #bcbec4;}
+.s4 { color: #d5b778;}
+.s5 { color: #bababa;}
+.s6 { color: #bcbec4;}
+.s7 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main.css</font>
+</center></td></tr></table>
+<pre><span class="s0">@import </span><span class="s2">'./base.css'</span><span class="s3">;</span>
+
+<span class="s4">#app </span><span class="s3">{</span>
+  <span class="s5">max-width</span><span class="s6">: </span><span class="s7">1280</span><span class="s2">px</span><span class="s3">;</span>
+  <span class="s5">margin</span><span class="s6">: </span><span class="s7">0 </span><span class="s2">auto</span><span class="s3">;</span>
+  <span class="s5">padding</span><span class="s6">: </span><span class="s7">2</span><span class="s2">rem</span><span class="s3">;</span>
+  <span class="s5">font-weight</span><span class="s6">: </span><span class="s2">normal</span><span class="s3">;</span>
+<span class="s3">}</span>
+
+<span class="s4">a</span><span class="s3">,</span>
+<span class="s3">.</span><span class="s4">green </span><span class="s3">{</span>
+  <span class="s5">text-decoration</span><span class="s6">: </span><span class="s2">none</span><span class="s3">;</span>
+  <span class="s5">color</span><span class="s6">: </span><span class="s4">hsla</span><span class="s3">(</span><span class="s7">160</span><span class="s3">, </span><span class="s7">100</span><span class="s3">%, </span><span class="s7">37</span><span class="s3">%, </span><span class="s7">1</span><span class="s3">);</span>
+  <span class="s5">transition</span><span class="s6">: </span><span class="s7">0.4</span><span class="s2">s</span><span class="s3">;</span>
+  <span class="s5">padding</span><span class="s6">: </span><span class="s7">3</span><span class="s2">px</span><span class="s3">;</span>
+<span class="s3">}</span>
+
+<span class="s0">@media </span><span class="s3">(</span><span class="s5">hover</span><span class="s6">: </span><span class="s2">hover</span><span class="s3">) {</span>
+  <span class="s4">a</span><span class="s6">:</span><span class="s4">hover </span><span class="s3">{</span>
+    <span class="s5">background-color</span><span class="s6">: </span><span class="s4">hsla</span><span class="s3">(</span><span class="s7">160</span><span class="s3">, </span><span class="s7">100</span><span class="s3">%, </span><span class="s7">37</span><span class="s3">%, </span><span class="s7">0.2</span><span class="s3">);</span>
+  <span class="s3">}</span>
+<span class="s3">}</span>
+
+<span class="s0">@media </span><span class="s3">(</span><span class="s5">min-width</span><span class="s6">: </span><span class="s7">1024</span><span class="s2">px</span><span class="s3">) {</span>
+  <span class="s4">body </span><span class="s3">{</span>
+    <span class="s5">display</span><span class="s6">: </span><span class="s2">flex</span><span class="s3">;</span>
+    <span class="s5">place-items</span><span class="s6">: </span><span class="s2">center</span><span class="s3">;</span>
+  <span class="s3">}</span>
+
+  <span class="s4">#app </span><span class="s3">{</span>
+    <span class="s5">display</span><span class="s6">: </span><span class="s2">grid</span><span class="s3">;</span>
+    <span class="s5">grid-template-columns</span><span class="s6">: </span><span class="s7">1</span><span class="s2">fr </span><span class="s7">1</span><span class="s2">fr</span><span class="s3">;</span>
+    <span class="s5">padding</span><span class="s6">: </span><span class="s7">0 2</span><span class="s2">rem</span><span class="s3">;</span>
+  <span class="s3">}</span>
+<span class="s3">}</span>
+</pre>
+</body>
+</html>

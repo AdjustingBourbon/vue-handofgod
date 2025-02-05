@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>HelloWorld.vue</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d5b778;}
+.s1 { color: #bababa;}
+.s2 { color: #bcbec4;}
+.s3 { color: #cf8e6d;}
+.s4 { color: #6aab73;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+HelloWorld.vue</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;script </span><span class="s1">setup</span><span class="s0">&gt;</span>
+<span class="s2">defineProps({</span>
+  <span class="s2">msg: {</span>
+    <span class="s2">type: String,</span>
+    <span class="s2">required: </span><span class="s3">true</span><span class="s2">,</span>
+  <span class="s2">},</span>
+<span class="s2">})</span>
+<span class="s0">&lt;/script&gt;</span>
+
+<span class="s0">&lt;template&gt;</span>
+  <span class="s0">&lt;div </span><span class="s1">class</span><span class="s4">=&quot;greetings&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;h1 </span><span class="s1">class</span><span class="s4">=&quot;green&quot;</span><span class="s0">&gt;</span><span class="s2">{{ msg }}</span><span class="s0">&lt;/h1&gt;</span>
+    <span class="s0">&lt;h3&gt;</span>
+      <span class="s2">You’ve successfully created a project with</span>
+      <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://vite.dev/&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">Vite</span><span class="s0">&lt;/a&gt; </span><span class="s2">+</span>
+      <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://vuejs.org/&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">Vue 3</span><span class="s0">&lt;/a&gt;</span><span class="s2">.</span>
+    <span class="s0">&lt;/h3&gt;</span>
+  <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/template&gt;</span>
+
+<span class="s0">&lt;style </span><span class="s1">scoped</span><span class="s0">&gt;</span>
+<span class="s0">h1 </span><span class="s2">{</span>
+  <span class="s1">font-weight</span><span class="s2">: </span><span class="s5">500</span><span class="s2">;</span>
+  <span class="s1">font-size</span><span class="s2">: </span><span class="s5">2.6</span><span class="s4">rem</span><span class="s2">;</span>
+  <span class="s1">position</span><span class="s2">: </span><span class="s4">relative</span><span class="s2">;</span>
+  <span class="s1">top</span><span class="s2">: -</span><span class="s5">10</span><span class="s4">px</span><span class="s2">;</span>
+<span class="s2">}</span>
+
+<span class="s0">h3 </span><span class="s2">{</span>
+  <span class="s1">font-size</span><span class="s2">: </span><span class="s5">1.2</span><span class="s4">rem</span><span class="s2">;</span>
+<span class="s2">}</span>
+
+<span class="s2">.</span><span class="s0">greetings h1</span><span class="s2">,</span>
+<span class="s2">.</span><span class="s0">greetings h3 </span><span class="s2">{</span>
+  <span class="s1">text-align</span><span class="s2">: </span><span class="s4">center</span><span class="s2">;</span>
+<span class="s2">}</span>
+
+<span class="s3">@media </span><span class="s2">(</span><span class="s1">min-width</span><span class="s2">: </span><span class="s5">1024</span><span class="s4">px</span><span class="s2">) {</span>
+  <span class="s2">.</span><span class="s0">greetings h1</span><span class="s2">,</span>
+  <span class="s2">.</span><span class="s0">greetings h3 </span><span class="s2">{</span>
+    <span class="s1">text-align</span><span class="s2">: </span><span class="s4">left</span><span class="s2">;</span>
+  <span class="s2">}</span>
+<span class="s2">}</span>
+<span class="s0">&lt;/style&gt;</span>
+</pre>
+</body>
+</html>

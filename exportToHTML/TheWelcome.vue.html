@@ -1,0 +1,115 @@
+<html>
+<head>
+<title>TheWelcome.vue</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d5b778;}
+.s1 { color: #bababa;}
+.s2 { color: #bcbec4;}
+.s3 { color: #cf8e6d;}
+.s4 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+TheWelcome.vue</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;script </span><span class="s1">setup</span><span class="s0">&gt;</span>
+<span class="s3">import </span><span class="s2">WelcomeItem from </span><span class="s4">'./WelcomeItem.vue'</span>
+<span class="s3">import </span><span class="s2">DocumentationIcon from </span><span class="s4">'./icons/IconDocumentation.vue'</span>
+<span class="s3">import </span><span class="s2">ToolingIcon from </span><span class="s4">'./icons/IconTooling.vue'</span>
+<span class="s3">import </span><span class="s2">EcosystemIcon from </span><span class="s4">'./icons/IconEcosystem.vue'</span>
+<span class="s3">import </span><span class="s2">CommunityIcon from </span><span class="s4">'./icons/IconCommunity.vue'</span>
+<span class="s3">import </span><span class="s2">SupportIcon from </span><span class="s4">'./icons/IconSupport.vue'</span>
+
+<span class="s3">const </span><span class="s2">openReadmeInEditor = () =&gt; fetch(</span><span class="s4">'/__open-in-editor?file=README.md'</span><span class="s2">)</span>
+<span class="s0">&lt;/script&gt;</span>
+
+<span class="s0">&lt;template&gt;</span>
+  <span class="s0">&lt;WelcomeItem&gt;</span>
+    <span class="s0">&lt;template </span><span class="s1">#icon</span><span class="s0">&gt;</span>
+      <span class="s0">&lt;DocumentationIcon /&gt;</span>
+    <span class="s0">&lt;/template&gt;</span>
+    <span class="s0">&lt;template </span><span class="s1">#heading</span><span class="s0">&gt;</span><span class="s2">Documentation</span><span class="s0">&lt;/template&gt;</span>
+
+    <span class="s2">Vue’s</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://vuejs.org/&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">official documentation</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s2">provides you with all information you need to get started.</span>
+  <span class="s0">&lt;/WelcomeItem&gt;</span>
+
+  <span class="s0">&lt;WelcomeItem&gt;</span>
+    <span class="s0">&lt;template </span><span class="s1">#icon</span><span class="s0">&gt;</span>
+      <span class="s0">&lt;ToolingIcon /&gt;</span>
+    <span class="s0">&lt;/template&gt;</span>
+    <span class="s0">&lt;template </span><span class="s1">#heading</span><span class="s0">&gt;</span><span class="s2">Tooling</span><span class="s0">&lt;/template&gt;</span>
+
+    <span class="s2">This project is served and bundled with</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://vite.dev/guide/features.html&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">Vite</span><span class="s0">&lt;/a&gt;</span><span class="s2">. The</span>
+    <span class="s2">recommended IDE setup is</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://code.visualstudio.com/&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">VSCode</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s2">+</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://github.com/johnsoncodehk/volar&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">Volar</span><span class="s0">&lt;/a&gt;</span><span class="s2">. If</span>
+    <span class="s2">you need to test your components and web pages, check out</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://vitest.dev/&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">Vite</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s2">and</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://www.cypress.io/&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">Cypress</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s2">/</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://playwright.dev/&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">Playwright</span><span class="s0">&lt;/a&gt;</span><span class="s2">.</span>
+
+    <span class="s0">&lt;br /&gt;</span>
+
+    <span class="s2">More instructions are available in</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;javascript:void(0)&quot; </span><span class="s1">@click</span><span class="s4">=&quot;</span><span class="s2">openReadmeInEditor</span><span class="s4">&quot;</span><span class="s0">&gt;&lt;code&gt;</span><span class="s2">README.md</span><span class="s0">&lt;/code&gt;&lt;/a</span>
+    <span class="s0">&gt;</span><span class="s2">.</span>
+  <span class="s0">&lt;/WelcomeItem&gt;</span>
+
+  <span class="s0">&lt;WelcomeItem&gt;</span>
+    <span class="s0">&lt;template </span><span class="s1">#icon</span><span class="s0">&gt;</span>
+      <span class="s0">&lt;EcosystemIcon /&gt;</span>
+    <span class="s0">&lt;/template&gt;</span>
+    <span class="s0">&lt;template </span><span class="s1">#heading</span><span class="s0">&gt;</span><span class="s2">Ecosystem</span><span class="s0">&lt;/template&gt;</span>
+
+    <span class="s2">Get official tools and libraries for your project:</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://pinia.vuejs.org/&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">Pinia</span><span class="s0">&lt;/a&gt;</span><span class="s2">,</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://router.vuejs.org/&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">Vue Router</span><span class="s0">&lt;/a&gt;</span><span class="s2">,</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://test-utils.vuejs.org/&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">Vue Test Utils</span><span class="s0">&lt;/a&gt;</span><span class="s2">, and</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://github.com/vuejs/devtools&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">Vue Dev Tools</span><span class="s0">&lt;/a&gt;</span><span class="s2">. If</span>
+    <span class="s2">you need more resources, we suggest paying</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://github.com/vuejs/awesome-vue&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">Awesome Vue</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s2">a visit.</span>
+  <span class="s0">&lt;/WelcomeItem&gt;</span>
+
+  <span class="s0">&lt;WelcomeItem&gt;</span>
+    <span class="s0">&lt;template </span><span class="s1">#icon</span><span class="s0">&gt;</span>
+      <span class="s0">&lt;CommunityIcon /&gt;</span>
+    <span class="s0">&lt;/template&gt;</span>
+    <span class="s0">&lt;template </span><span class="s1">#heading</span><span class="s0">&gt;</span><span class="s2">Community</span><span class="s0">&lt;/template&gt;</span>
+
+    <span class="s2">Got stuck? Ask your question on</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://chat.vuejs.org&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">Vue Land</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s2">(our official Discord server), or</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://stackoverflow.com/questions/tagged/vue.js&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span>
+      <span class="s0">&gt;</span><span class="s2">StackOverflow</span><span class="s0">&lt;/a</span>
+    <span class="s0">&gt;</span><span class="s2">. You should also follow the official</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://bsky.app/profile/vuejs.org&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">@vuejs.org</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s2">Bluesky account or the</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://x.com/vuejs&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">@vuejs</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s2">X account for latest news in the Vue world.</span>
+  <span class="s0">&lt;/WelcomeItem&gt;</span>
+
+  <span class="s0">&lt;WelcomeItem&gt;</span>
+    <span class="s0">&lt;template </span><span class="s1">#icon</span><span class="s0">&gt;</span>
+      <span class="s0">&lt;SupportIcon /&gt;</span>
+    <span class="s0">&lt;/template&gt;</span>
+    <span class="s0">&lt;template </span><span class="s1">#heading</span><span class="s0">&gt;</span><span class="s2">Support Vue</span><span class="s0">&lt;/template&gt;</span>
+
+    <span class="s2">As an independent project, Vue relies on community backing for its sustainability. You can help</span>
+    <span class="s2">us by</span>
+    <span class="s0">&lt;a </span><span class="s1">href</span><span class="s4">=&quot;https://vuejs.org/sponsor/&quot; </span><span class="s1">target</span><span class="s4">=&quot;_blank&quot; </span><span class="s1">rel</span><span class="s4">=&quot;noopener&quot;</span><span class="s0">&gt;</span><span class="s2">becoming a sponsor</span><span class="s0">&lt;/a&gt;</span><span class="s2">.</span>
+  <span class="s0">&lt;/WelcomeItem&gt;</span>
+<span class="s0">&lt;/template&gt;</span>
+</pre>
+</body>
+</html>

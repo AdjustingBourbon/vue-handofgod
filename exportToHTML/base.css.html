@@ -1,0 +1,112 @@
+<html>
+<head>
+<title>base.css</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #d5b778;}
+.s4 { color: #bcbec4;}
+.s5 { color: #bababa;}
+.s6 { color: #56a8f5;}
+.s7 { color: #2aacb8;}
+.s8 { color: #6aab73;}
+.s9 { color: #cf8e6d;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+base.css</font>
+</center></td></tr></table>
+<pre><span class="s0">/* color palette from &lt;https://github.com/vuejs/theme&gt; */</span>
+<span class="s2">:</span><span class="s3">root </span><span class="s4">{</span>
+  <span class="s5">--vt-c-white</span><span class="s2">: </span><span class="s6">#ffffff</span><span class="s4">;</span>
+  <span class="s5">--vt-c-white-soft</span><span class="s2">: </span><span class="s6">#f8f8f8</span><span class="s4">;</span>
+  <span class="s5">--vt-c-white-mute</span><span class="s2">: </span><span class="s6">#f2f2f2</span><span class="s4">;</span>
+
+  <span class="s5">--vt-c-black</span><span class="s2">: </span><span class="s6">#181818</span><span class="s4">;</span>
+  <span class="s5">--vt-c-black-soft</span><span class="s2">: </span><span class="s6">#222222</span><span class="s4">;</span>
+  <span class="s5">--vt-c-black-mute</span><span class="s2">: </span><span class="s6">#282828</span><span class="s4">;</span>
+
+  <span class="s5">--vt-c-indigo</span><span class="s2">: </span><span class="s6">#2c3e50</span><span class="s4">;</span>
+
+  <span class="s5">--vt-c-divider-light-1</span><span class="s2">: </span><span class="s3">rgba</span><span class="s4">(</span><span class="s7">60</span><span class="s4">, </span><span class="s7">60</span><span class="s4">, </span><span class="s7">60</span><span class="s4">, </span><span class="s7">0.29</span><span class="s4">);</span>
+  <span class="s5">--vt-c-divider-light-2</span><span class="s2">: </span><span class="s3">rgba</span><span class="s4">(</span><span class="s7">60</span><span class="s4">, </span><span class="s7">60</span><span class="s4">, </span><span class="s7">60</span><span class="s4">, </span><span class="s7">0.12</span><span class="s4">);</span>
+  <span class="s5">--vt-c-divider-dark-1</span><span class="s2">: </span><span class="s3">rgba</span><span class="s4">(</span><span class="s7">84</span><span class="s4">, </span><span class="s7">84</span><span class="s4">, </span><span class="s7">84</span><span class="s4">, </span><span class="s7">0.65</span><span class="s4">);</span>
+  <span class="s5">--vt-c-divider-dark-2</span><span class="s2">: </span><span class="s3">rgba</span><span class="s4">(</span><span class="s7">84</span><span class="s4">, </span><span class="s7">84</span><span class="s4">, </span><span class="s7">84</span><span class="s4">, </span><span class="s7">0.48</span><span class="s4">);</span>
+
+  <span class="s5">--vt-c-text-light-1</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--vt-c-indigo</span><span class="s4">);</span>
+  <span class="s5">--vt-c-text-light-2</span><span class="s2">: </span><span class="s3">rgba</span><span class="s4">(</span><span class="s7">60</span><span class="s4">, </span><span class="s7">60</span><span class="s4">, </span><span class="s7">60</span><span class="s4">, </span><span class="s7">0.66</span><span class="s4">);</span>
+  <span class="s5">--vt-c-text-dark-1</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--vt-c-white</span><span class="s4">);</span>
+  <span class="s5">--vt-c-text-dark-2</span><span class="s2">: </span><span class="s3">rgba</span><span class="s4">(</span><span class="s7">235</span><span class="s4">, </span><span class="s7">235</span><span class="s4">, </span><span class="s7">235</span><span class="s4">, </span><span class="s7">0.64</span><span class="s4">);</span>
+<span class="s4">}</span>
+
+<span class="s0">/* semantic color variables for this project */</span>
+<span class="s2">:</span><span class="s3">root </span><span class="s4">{</span>
+  <span class="s5">--color-background</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--vt-c-white</span><span class="s4">);</span>
+  <span class="s5">--color-background-soft</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--vt-c-white-soft</span><span class="s4">);</span>
+  <span class="s5">--color-background-mute</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--vt-c-white-mute</span><span class="s4">);</span>
+
+  <span class="s5">--color-border</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--vt-c-divider-light-2</span><span class="s4">);</span>
+  <span class="s5">--color-border-hover</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--vt-c-divider-light-1</span><span class="s4">);</span>
+
+  <span class="s5">--color-heading</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--vt-c-text-light-1</span><span class="s4">);</span>
+  <span class="s5">--color-text</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--vt-c-text-light-1</span><span class="s4">);</span>
+
+  <span class="s5">--section-gap</span><span class="s2">: </span><span class="s7">160</span><span class="s8">px</span><span class="s4">;</span>
+<span class="s4">}</span>
+
+<span class="s9">@media </span><span class="s4">(</span><span class="s5">prefers-color-scheme</span><span class="s2">: </span><span class="s8">dark</span><span class="s4">) {</span>
+  <span class="s2">:</span><span class="s3">root </span><span class="s4">{</span>
+    <span class="s5">--color-background</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--vt-c-black</span><span class="s4">);</span>
+    <span class="s5">--color-background-soft</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--vt-c-black-soft</span><span class="s4">);</span>
+    <span class="s5">--color-background-mute</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--vt-c-black-mute</span><span class="s4">);</span>
+
+    <span class="s5">--color-border</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--vt-c-divider-dark-2</span><span class="s4">);</span>
+    <span class="s5">--color-border-hover</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--vt-c-divider-dark-1</span><span class="s4">);</span>
+
+    <span class="s5">--color-heading</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--vt-c-text-dark-1</span><span class="s4">);</span>
+    <span class="s5">--color-text</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--vt-c-text-dark-2</span><span class="s4">);</span>
+  <span class="s4">}</span>
+<span class="s4">}</span>
+
+<span class="s3">*</span><span class="s4">,</span>
+<span class="s3">*</span><span class="s2">::</span><span class="s3">before</span><span class="s4">,</span>
+<span class="s3">*</span><span class="s2">::</span><span class="s3">after </span><span class="s4">{</span>
+  <span class="s5">box-sizing</span><span class="s2">: </span><span class="s8">border-box</span><span class="s4">;</span>
+  <span class="s5">margin</span><span class="s2">: </span><span class="s7">0</span><span class="s4">;</span>
+  <span class="s5">font-weight</span><span class="s2">: </span><span class="s8">normal</span><span class="s4">;</span>
+<span class="s4">}</span>
+
+<span class="s3">body </span><span class="s4">{</span>
+  <span class="s5">min-height</span><span class="s2">: </span><span class="s7">100</span><span class="s8">vh</span><span class="s4">;</span>
+  <span class="s5">color</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--color-text</span><span class="s4">);</span>
+  <span class="s5">background</span><span class="s2">: </span><span class="s3">var</span><span class="s4">(</span><span class="s3">--color-background</span><span class="s4">);</span>
+  <span class="s5">transition</span><span class="s2">:</span>
+    <span class="s8">color </span><span class="s7">0.5</span><span class="s8">s</span><span class="s4">,</span>
+    <span class="s8">background-color </span><span class="s7">0.5</span><span class="s8">s</span><span class="s4">;</span>
+  <span class="s5">line-height</span><span class="s2">: </span><span class="s7">1.6</span><span class="s4">;</span>
+  <span class="s5">font-family</span><span class="s2">:</span>
+    <span class="s3">Inter</span><span class="s4">,</span>
+    <span class="s8">-apple-system</span><span class="s4">,</span>
+    <span class="s3">BlinkMacSystemFont</span><span class="s4">,</span>
+    <span class="s8">'Segoe UI'</span><span class="s4">,</span>
+    <span class="s3">Roboto</span><span class="s4">,</span>
+    <span class="s3">Oxygen</span><span class="s4">,</span>
+    <span class="s3">Ubuntu</span><span class="s4">,</span>
+    <span class="s3">Cantarell</span><span class="s4">,</span>
+    <span class="s8">'Fira Sans'</span><span class="s4">,</span>
+    <span class="s8">'Droid Sans'</span><span class="s4">,</span>
+    <span class="s8">'Helvetica Neue'</span><span class="s4">,</span>
+    <span class="s8">sans-serif</span><span class="s4">;</span>
+  <span class="s5">font-size</span><span class="s2">: </span><span class="s7">15</span><span class="s8">px</span><span class="s4">;</span>
+  <span class="s5">text-rendering</span><span class="s2">: </span><span class="s3">optimizeLegibility</span><span class="s4">;</span>
+  <span class="s5">-webkit-font-smoothing</span><span class="s2">: </span><span class="s8">antialiased</span><span class="s4">;</span>
+  <span class="s5">-moz-osx-font-smoothing</span><span class="s2">: </span><span class="s8">grayscale</span><span class="s4">;</span>
+<span class="s4">}</span>
+</pre>
+</body>
+</html>
