@@ -1,12 +1,12 @@
 <template>
+          <h1 class="title" @click="showInstructions">线上即兴游戏工具ⓘ</h1>
+          <h1></h1>
+          <!-- 弹窗显示使用说明
+          <h1 class="title" @click="showInstructions"></h1> -->
   <div >
     <!-- 添加的漂亮标题 -->
     <div class="maindiv">
-      <div class="title-container">
-        <h1 class="title">线上即兴游戏工具</h1>
-        <h1 class="info-icon" @click="showInstructions">ⓘ</h1>
-      </div>
-      <!-- 弹窗显示注意事项 -->
+      <!-- 原先的标题h1所在 -->
        
 
       <h2 class="catalog">游戏模式</h2>
@@ -43,16 +43,17 @@
   </div>
   
   <div  class="maindiv">
+    <h2 v-if="!gameMode" class="catalog">添加游戏成员</h2>
     <div v-if="!gameMode" class="input-group">
-      <div class="input-container">
+      <div class="input-container" v-click-outside="closeSearchResults">
         <input 
           v-model="newName" 
-          @keyup.enter="addPerson" 
+          @keyup.enter="handleEnter" 
           @input="handleInput"
-          placeholder="输入姓名"
+          @focus="handleFocus"
+          placeholder="手动输入/搜索已导入名单"
         >
-        <!-- 添加搜索结果下拉框 -->
-        <div v-if="searchResults.length && newName" class="search-dropdown">
+        <div v-if="searchResults.length" class="search-dropdown">
           <div 
             v-for="name in searchResults" 
             :key="name"
@@ -63,50 +64,63 @@
           </div>
         </div>
       </div>
+      <button @click="addPerson">添加</button>
+      <!--
       <select v-model="selectedCommonName" @change="handleCommonNameSelect" class="common-names" size="1">
-        <option value="">选择常用名字</option>
+        <option value="">从已导入名单添加</option>
         <option v-for="name in commonNames" :key="name" :value="name">
           {{ name }}
         </option>
       </select>
-      <button @click="addPerson">添加</button>
-  </div>
-
+      -->
+    </div>
+    <h2 class="catalog">游戏名单</h2>
+    <div>
       <div>
-    <button @click="randomSelectPerson" class="random-btn" :disabled="visiblePeople.length === 0">
-      随机选择
-    </button>
+        <button @click="randomSelectPerson" class="random-btn" :disabled="visiblePeople.length === 0">
+          随机选择
+        </button>
         <button
             @click="moveHighlight"
             class="move-btn"
             :disabled="visiblePeople.length === 0"
         >
           按顺序移动
-        </button>        </div>
-
-
-    <draggable
-        v-model="visiblePeople"
-        @end="onDragEnd"
-        item-key="id"
-        class="people-list"
-    >
-      <template #item="{ element, index }">
-        <div
-            :class="['person-item', { 'highlight': index === currentIndex }]"
-            @click="selectPerson(index)"
+        </button>
+        <!-- 添加铃声开关按钮 -->
+        <button
+            @click="toggleBell"
+            class="bell-btn"
+            :class="{ 'bell-off': !bellEnabled }"
         >
-          <span class="checkmark">✓</span>
-          <span class="name">{{ element.name }}</span>
-          <button
-              @click.stop="handleAction(index)"
-              :class="['action-btn', { 'eliminate-btn': gameMode }]"
+          {{ bellEnabled ? '🔔 铃声已开启' : '🔕 铃声已关闭' }}
+        </button>
+      </div>
+
+
+      <draggable
+          v-model="visiblePeople"
+          @end="onDragEnd"
+          item-key="id"
+          class="people-list"
+      >
+        <template #item="{ element, index }">
+          <div
+              :class="['person-item', { 'highlight': index === currentIndex }]"
+              @click="selectPerson(index)"
           >
-            {{ gameMode ? '淘汰' : '删除' }}
-          </button>
-        </div>
-      </template>
-    </draggable>
+            <span class="checkmark">✓</span>
+            <span class="name">{{ element.name }}</span>
+            <button
+                @click.stop="handleAction(index)"
+                :class="['action-btn', { 'eliminate-btn': gameMode }]"
+            >
+              {{ gameMode ? '淘汰' : '删除' }}
+            </button>
+          </div>
+        </template>
+      </draggable>
+    </div>
 
 
 
@@ -130,6 +144,15 @@
       <button @click="closeInstructions" class="close-btn">关闭</button>
     </div>
   </div>
+
+  <!-- 在现有模板中添加音频元素 -->
+  <audio ref="bellAudio" preload="auto">
+    <source src="@/sounds/bell.wav" type="audio/wav">
+  </audio>
+
+  <div v-if="showHighlightPopup" class="highlight-popup">
+    换！{{ visiblePeople[currentIndex]?.name }} 🫵
+  </div>
 </template>
 
 <script>
@@ -138,6 +161,7 @@ import * as XLSX from 'xlsx'  // 需要安装 xlsx 包
 import { ref } from 'vue'
 import { marked } from 'marked'
 import instructionsText from '@/assets/instructions.md?raw'
+import easyRing from 'easy-ring'  // 修改导入方式
 
 export default {
   components: { draggable },
@@ -150,7 +174,7 @@ export default {
       nextId: 1,
       randomButtonEnabled: true, // 新增控制随机按钮状态的属性
       selectedCommonName: '',
-      commonNames: ['John', 'Jane', 'Doe', 'Smith', 'Bob', 'Alice','Tom','Jerry','Mike'],
+      commonNames: ['John', 'Jane', 'Doe', 'Smith', 'Bob', 'Alice','Tom','Jerry','Mike','Keith','Kate','Karl','Kavin','Jam'],
       commonNameSelect: false,
       showDialog: false,
       showHelpImage: false,
@@ -160,6 +184,11 @@ export default {
       searchResults: [],
       showInstructionsDialog: false,
       instructions: marked(instructionsText), // 使用 marked 解析 markdown
+      searchIndex: -1,
+      bellAudio: null,
+      bellEnabled: true, // 添加铃声开关状态
+      showHighlightPopup: false,
+      popupTimer: null,
     }
   },
   computed: {
@@ -231,14 +260,14 @@ export default {
     },
     randomSelectPerson() {
       if (this.visiblePeople.length > 1) {
-        const currentLength = this.visiblePeople.length;
-        let randomIndex = Math.floor(Math.random() * currentLength)
-        let attempts = 0;
+        const currentLength = this.visiblePeople.length
+        let randomIndex
+        let attempts = 0
         do {
-          randomIndex = Math.floor(Math.random() * currentLength);
-          attempts++;
-        } while (randomIndex === this.currentIndex && attempts < 10);
-    
+          randomIndex = Math.floor(Math.random() * currentLength)
+          attempts++
+        } while (randomIndex === this.currentIndex && attempts < 10)
+        
         this.currentIndex = randomIndex
       }
     },
@@ -246,6 +275,7 @@ export default {
       if (this.selectedCommonName) {
         this.newName = this.selectedCommonName
         this.addPerson()
+        this.selectedCommonName = '' // 重置为空字符串
       }
     },
     restorePerson(person) {
@@ -353,21 +383,37 @@ export default {
       })
     },
     handleInput() {
+      // 每次输入都重置选中索引
+      this.searchIndex = -1;
+      
       if (!this.newName) {
-        this.searchResults = []
-        return
+        // 如果输入框为空，显示所有名单（最多5个）
+        this.searchResults = this.commonNames.slice(0, 5);
+        return;
       }
       
-      // 执行模糊搜索
+      // 过滤匹配的名字，最多显示5个
       this.searchResults = this.commonNames.filter(name => 
         name.toLowerCase().includes(this.newName.toLowerCase())
-      ).slice(0, 5) // 最多显示5个结果？
+      ).slice(0, 5);
+    },
+    
+    handleFocus() {
+      // 在输入框获得焦点时显示前5个名单
+      if (!this.newName) {
+        this.searchResults = this.commonNames.slice(0, 5);
+      }
     },
     
     selectSearchResult(name) {
-      this.newName = name
-      this.searchResults = []
-      this.addPerson()
+      // 将选中的名字填入输入框
+      this.newName = name;
+      // 清空搜索结果列表
+      this.searchResults = [];
+      // 重置选中索引
+      this.searchIndex = -1;
+      // 添加到人员列表
+      this.addPerson();
     },
     showInstructions() {
       this.showInstructionsDialog = true
@@ -375,6 +421,95 @@ export default {
     
     closeInstructions() {
       this.showInstructionsDialog = false
+    },
+    // 处理上下键移动选择
+    moveSearchSelection(direction) {
+      // 如果没有搜索结果，直接返回
+      if (this.searchResults.length === 0) return;
+      
+      if (this.searchIndex === -1) {
+        // 如果当前没有选中项（-1）
+        // direction > 0 表示按下键，选择第一项（索引0）
+        // direction < 0 表示按上键，选择最后一项（长度-1）
+        this.searchIndex = direction > 0 ? 0 : this.searchResults.length - 1;
+      } else {
+        // 如果已经有选中项，则循环移动选择
+        // 使用模运算确保索引在合法范围内循环
+        // 加上 searchResults.length 是为了处理负数情况
+        this.searchIndex = (this.searchIndex + direction + this.searchResults.length) % this.searchResults.length;
+      }
+    },
+
+    // 处理回车键按下
+    handleEnter() {
+      if (this.searchResults.length && this.searchIndex !== -1) {
+        // 如果有搜索结果且已选中某一项
+        // 则选择当前高亮的选项
+        this.selectSearchResult(this.searchResults[this.searchIndex]);
+      } else {
+        // 如果没有搜索结果或没有选中项
+        // 则直接添加当前输入框的内容
+        this.addPerson();
+      }
+    },
+    closeSearchResults() {
+      this.searchResults = [];
+    },
+    toggleBell() {
+      this.bellEnabled = !this.bellEnabled;
+      // 显示提示消息
+      this.showTempMessage(this.bellEnabled ? '铃声已开启' : '铃声已关闭');
+    },
+    async playBell() {
+      if (!this.bellEnabled) return; // 如果铃声关闭则不播放
+      
+      try {
+        if (this.bellAudio) {
+          this.bellAudio.volume = 0.2;
+          this.bellAudio.currentTime = 0;
+          await this.bellAudio.play();
+        }
+      } catch (error) {
+        console.warn('音频播放失败:', error);
+      }
+    },
+  },
+  mounted() {
+    this.bellAudio = this.$refs.bellAudio
+    // 预加载音频
+    this.bellAudio.load()
+  },
+  watch: {
+    currentIndex(newVal, oldVal) {
+      if (newVal !== oldVal && this.visiblePeople.length > 0) {
+        this.playBell();
+        // 立即终止之前的动画
+        this.showHighlightPopup = false;
+        // 使用requestAnimationFrame确保DOM更新
+        requestAnimationFrame(() => {
+          this.showHighlightPopup = true;
+          // 设置精准的2秒定时器
+          clearTimeout(this.popupTimer);
+          this.popupTimer = setTimeout(() => {
+            this.showHighlightPopup = false;
+          }, 2000);
+        });
+      }
+    }
+  },
+  directives: {
+    'click-outside': {
+      mounted(el, binding) {
+        el._clickOutside = (event) => {
+          if (!(el === event.target || el.contains(event.target))) {
+            binding.value(event);
+          }
+        };
+        document.addEventListener('click', el._clickOutside);
+      },
+      unmounted(el) {
+        document.removeEventListener('click', el._clickOutside);
+      },
     },
   }
 }
@@ -391,8 +526,11 @@ export default {
   text-align: center;
   font-size: 2.5em;
   color: #4CAF50; /* 绿色文本，可以根据需要调整 */
-  margin-bottom: 20px;
-  /*border-bottom: 2px solid #ddd; /* 底部边框装饰 */
+    margin-top: 20px;
+  margin-right: 30px;
+  margin-bottom: 40px;
+  margin-left: 30px;
+  border-bottom: 2px solid #ddd; /* 底部边框装饰 */
   padding-bottom: 0px;
 }
 .catalog{
@@ -435,12 +573,6 @@ button {
   background: #2196F3;
   color: white;
   margin-bottom: 20px;
-}
-
-.move-btn {
-  background: #4CAF50;
-  color: white;
-  margin: 20px 0;
 }
 
 .people-list {
@@ -523,7 +655,15 @@ button:disabled {
 .random-btn {
   background: #FFC107; /* 橙色背景，可以根据需要调整 */
   color: white;
-  margin-bottom: 20px;
+  margin-right: 10px; /* 改用 margin-right 代替 margin-bottom */
+  margin-top: 0;
+}
+
+.move-btn {
+  background: #4CAF50;
+  color: white;
+  margin: 20px 0;
+  margin-top: 0;
 }
 
 .common-names {
@@ -709,5 +849,60 @@ button:disabled {
 
 .instructions-text li::marker {
   color: #4CAF50;
+}
+
+/* 添加铃声按钮样式 */
+.bell-btn {
+  background: #9C27B0;
+  color: white;
+  margin-left: 10px;
+  padding: 8px 16px;
+}
+
+.bell-btn.bell-off {
+  background: #757575;
+}
+
+.bell-btn:hover {
+  opacity: 0.9;
+}
+/* 在现有style的末尾添加 */
+.highlight-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(76, 175, 80, 0.8);
+  color: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  font-size: 24px;
+  pointer-events: none;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  opacity: 0.8; /* 直接设置固定透明度 */
+  animation: popupFade 2s ease-in-out forwards;
+}
+
+@keyframes popupFade {
+  0% { 
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  20% { 
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  80% { 
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% { 
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
 }
 </style>
