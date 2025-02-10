@@ -147,7 +147,7 @@
 
   <!-- 在现有模板中添加音频元素 -->
   <audio ref="bellAudio" preload="auto">
-    <source src="@/sounds/bell.wav" type="audio/wav">
+    <source src="@/assets/sounds/bell.wav" type="audio/wav">
   </audio>
 
   <div v-if="showHighlightPopup" class="highlight-popup">
