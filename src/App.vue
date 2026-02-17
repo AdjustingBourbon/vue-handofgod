@@ -55,46 +55,12 @@
             </button>
           </div>
         </div>
-
-          <!-- 上传弹窗 -->
-          <div v-if="showDialog" class="dialog-overlay">
-            <div class="dialog-content">
-              <h3>导入会议成员名单</h3>
-              <input
-                  type="file"
-                  @change="handleFileUpload"
-                  accept=".xlsx,.xls"
-                  class="file-input"
-              >
-              <div class="help-link">
-                <a
-                    href="#"
-                    @click.prevent="showHelp"
-                >
-                  如何导出腾讯会议成员名单？
-                </a>
-              </div>
-
-              <img
-                  v-if="showHelpImage"
-                  src="./assets/picture/腾讯会议如何导出会议成员.png"
-                  class="help-image"
-              >
-
-              <button
-                  @click="closeDialog"
-                  class="close-btn"
-              >
-                关闭
-              </button>
-            </div>
-          </div>
       </nav>
 
       <!-- 右侧主内容区 -->
-      <div>
+      <div class="main-content">
         <!-- 游戏名单区域 -->
-        <div class="main-div">
+        <div class="main-div" style="width: 100%; max-width: 100%;">
       <h2 class="catalog" style="margin-bottom: 15px;">游戏名单</h2>
 
       <div style="
@@ -117,9 +83,9 @@
               border-radius: 4px;
               box-sizing: border-box;
             "
-          >
+              >
 
-          <div v-if="searchResults.length" class="search-dropdown" style="
+              <div v-if="searchResults.length" class="search-dropdown" style="
             position: absolute;
             top: 100%;
             left: 0;
@@ -130,28 +96,28 @@
             border-radius: 0 0 4px 4px;
             max-height: 200px;
             overflow-y: auto;
-            z-index: 100;
+            z-index: 1000;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
           ">
-            <div
-                v-for="name in searchResults"
-                :key="name"
-                class="search-item"
-                @click="selectSearchResult(name)"
-                style="
+                <div
+                    v-for="name in searchResults"
+                    :key="name"
+                    class="search-item"
+                    @click="selectSearchResult(name)"
+                    style="
                 padding: 8px 12px;
                 cursor: pointer;
                 transition: background-color 0.2s;
               "
-            >
-              {{ name }}
+                >
+                  {{ name }}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <button
-            @click="addPerson"
-            style="
+            <button
+                @click="addPerson"
+                style="
             padding: 8px 16px;
             background: #4CAF50;
             color: white;
@@ -160,17 +126,17 @@
             cursor: pointer;
             transition: all 0.3s;
           "
-        >
-          添加
-        </button>
-      </div>
+            >
+              添加
+            </button>
+          </div>
 
-      <div class="action-buttons" style="margin: 15px 0;">
-        <button
-            @click="randomSelectPerson"
-            class="random-btn"
-            :disabled="visiblePeople.length === 0"
-            style="
+          <div class="action-buttons" style="margin: 15px 0;">
+            <button
+                @click="randomSelectPerson"
+                class="random-btn"
+                :disabled="visiblePeople.length === 0"
+                style="
             background: #FFC107;
             color: white;
             padding: 8px 16px;
@@ -180,15 +146,15 @@
             transition: all 0.3s;
             margin-right: 10px;
           "
-        >
-          随机选择
-        </button>
+            >
+              随机选择
+            </button>
 
-        <button
-            @click="moveHighlight"
-            class="move-btn"
-            :disabled="visiblePeople.length === 0"
-            style="
+            <button
+                @click="moveHighlight"
+                class="move-btn"
+                :disabled="visiblePeople.length === 0"
+                style="
             background: #4CAF50;
             color: white;
             padding: 8px 16px;
@@ -198,29 +164,29 @@
             transition: all 0.3s;
             margin-right: 10px;
           "
-        >
-          按顺序选择
-        </button>
-      </div>
+            >
+              按顺序选择
+            </button>
+          </div>
 
-      <!-- 人员列表 -->
-      <draggable
-          v-model="visiblePeople"
-          @end="onDragEnd"
-          item-key="id"
-          class="people-list"
-          style="
+          <!-- 人员列表 -->
+          <draggable
+              v-model="visiblePeople"
+              @end="onDragEnd"
+              item-key="id"
+              class="people-list"
+              style="
           display: flex;
           flex-direction: column;
           gap: 10px;
           margin-top: 10px;
         "
-      >
-        <template #item="{ element, index }">
-          <div
-              :class="['person-item', { 'highlight': index === currentIndex }]"
-              @click="selectPerson(index)"
-              style="
+          >
+            <template #item="{ element, index }">
+              <div
+                  :class="['person-item', { 'highlight': index === currentIndex }]"
+                  @click="selectPerson(index)"
+                  style="
               display: flex;
               align-items: center;
               padding: 15px;
@@ -230,35 +196,35 @@
               position: relative;
               cursor: pointer;
             "
-              :style="{
+                  :style="{
               background: index === currentIndex ? '#fff9c4' : '#f8f8f8',
               boxShadow: index === currentIndex ? '0 2px 8px rgba(0,0,0,0.1)' : 'none'
             }"
-          >
-            <span
-                class="checkmark"
-                style="
+              >
+                <span
+                    class="checkmark"
+                    style="
                 opacity: 0;
                 margin-right: 15px;
                 color: #4CAF50;
                 font-weight: bold;
                 transition: opacity 0.3s;
               "
-                :style="{ opacity: index === currentIndex ? '1' : '0' }"
-            >
+                    :style="{ opacity: index === currentIndex ? '1' : '0' }"
+                >
               ✓
             </span>
 
-            <span class="name" style="flex-grow: 1;">
+                <span class="name" style="flex-grow: 1;">
               {{ element.name }}
             </span>
 
-            <!-- 淘汰按钮 - 仅在上帝之手模式下显示 -->
-            <button
-                v-if="handMode"
-                @click.stop="eliminatePerson(index)"
-                class="action-btn eliminate-btn"
-                style="
+                <!-- 淘汰按钮 - 仅在上帝之手模式下显示 -->
+                <button
+                    v-if="handMode"
+                    @click.stop="eliminatePerson(index)"
+                    class="action-btn eliminate-btn"
+                    style="
                 padding: 6px 12px;
                 border: none;
                 border-radius: 4px;
@@ -268,16 +234,16 @@
                 color: white;
                 margin-right: 8px;
               "
-            >
-              淘汰
-            </button>
+                >
+                  淘汰
+                </button>
 
-            <!-- 换按钮 - 仅在Change模式下显示 -->
-            <button
-                v-if="changeMode"
-                @click.stop="showChangePopupFunc(index)"
-                class="action-btn change-btn"
-                style="
+                <!-- 换按钮 - 仅在Change模式下显示 -->
+                <button
+                    v-if="changeMode"
+                    @click.stop="showChangePopupFunc(index)"
+                    class="action-btn change-btn"
+                    style="
                 padding: 6px 12px;
                 border: none;
                 border-radius: 4px;
@@ -287,16 +253,16 @@
                 color: white;
                 margin-right: 8px;
               "
-            >
-              换！
-            </button>
+                >
+                  换！
+                </button>
 
-            <!-- 继续按钮 - 仅在Change模式下显示 -->
-            <button
-                v-if="changeMode"
-                @click.stop="showContinuePopupFunc(index)"
-                class="action-btn continue-btn"
-                style="
+                <!-- 继续按钮 - 仅在Change模式下显示 -->
+                <button
+                    v-if="changeMode"
+                    @click.stop="showContinuePopupFunc(index)"
+                    class="action-btn continue-btn"
+                    style="
                 padding: 6px 12px;
                 border: none;
                 border-radius: 4px;
@@ -305,16 +271,16 @@
                 background: #4CAF50;
                 color: white;
               "
-            >
-              继续
-            </button>
+                >
+                  继续
+                </button>
 
-            <!-- 删除按钮 - 普通模式下显示 -->
-            <button
-                v-if="!handMode && !changeMode"
-                @click.stop="removePerson(index)"
-                class="action-btn delete-btn"
-                style="
+                <!-- 删除按钮 - 普通模式下显示 -->
+                <button
+                    v-if="!handMode && !changeMode"
+                    @click.stop="removePerson(index)"
+                    class="action-btn delete-btn"
+                    style="
                 padding: 6px 12px;
                 border: none;
                 border-radius: 4px;
@@ -323,33 +289,67 @@
                 background: #ff4444;
                 color: white;
               "
-            >
-              删除
-            </button>
-          </div>
-        </template>
-      </draggable>
+                >
+                  删除
+                </button>
+              </div>
+            </template>
+          </draggable>
         </div>
 
         <!-- 已淘汰名单 -->
         <div v-if="handMode && eliminatedPeople.length" class="eliminated-list">
-      <h3 style="margin-top: 0; margin-bottom: 15px;">已淘汰名单</h3>
-      <div
-          v-for="person in eliminatedPeople"
-          :key="person.id"
-          class="eliminated-item"
-          @click="restorePerson(person)"
-          style="
+          <h3 style="margin-top: 0; margin-bottom: 15px;">已淘汰名单</h3>
+          <div
+              v-for="person in eliminatedPeople"
+              :key="person.id"
+              class="eliminated-item"
+              @click="restorePerson(person)"
+              style="
           padding: 10px;
           color: #666;
           text-decoration: line-through;
           cursor: pointer;
           transition: all 0.3s;
         "
-      >
-        {{ person.name }}
-      </div>
+          >
+            {{ person.name }}
+          </div>
         </div>
+      </div>
+    </div>
+
+    <!-- 上传弹窗 - 移出侧边栏，放到根层级 -->
+    <div v-if="showDialog" class="dialog-overlay">
+      <div class="dialog-content">
+        <h3>导入会议成员名单</h3>
+        <input
+            type="file"
+            @change="handleFileUpload"
+            accept=".xlsx,.xls"
+            class="file-input"
+        >
+        <div class="help-link">
+          <a
+              href="#"
+              @click.prevent="showHelp"
+          >
+            如何导出腾讯会议成员名单？
+          </a>
+        </div>
+
+        <img
+            v-if="showHelpImage"
+            src="./assets/picture/腾讯会议如何导出会议成员.png"
+            class="help-image"
+        >
+
+        <button
+            @click="closeDialog"
+            class="close-btn"
+        >
+          关闭
+        </button>
       </div>
     </div>
 
@@ -385,18 +385,18 @@
 
     <!-- 高亮弹窗 -->
     <div v-if="showHighlightPopup" class="highlight-popup">
-<!--      <img-->
-<!--          src="./assets/picture/Sam-Change.jpg"-->
-<!--          alt="Sam Change"-->
-<!--          class="change-image-small"-->
-<!--          style="-->
-<!--          max-width: 180px;-->
-<!--          height: auto;-->
-<!--          border-radius: 10px;-->
-<!--          margin-bottom: 15px;-->
-<!--          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);-->
-<!--        "-->
-<!--      >-->
+      <!--      <img-->
+      <!--          src="./assets/picture/Sam-Change.jpg"-->
+      <!--          alt="Sam Change"-->
+      <!--          class="change-image-small"-->
+      <!--          style="-->
+      <!--          max-width: 180px;-->
+      <!--          height: auto;-->
+      <!--          border-radius: 10px;-->
+      <!--          margin-bottom: 15px;-->
+      <!--          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);-->
+      <!--        "-->
+      <!--      >-->
       <div class="change-text-auto">
         换！{{ visiblePeople[currentIndex]?.name }} 🫵
       </div>
@@ -843,13 +843,28 @@ export default {
 <style>
 .app-container {
   font-family: 'Arial', sans-serif;
-  margin: 0 auto;
+  margin: 0;
   width: 100%;
   padding-top: 80px; /* 为固定标题留出空间 */
+  padding-left: 280px; /* 为侧边栏留出空间 */
+}
+
+.main-layout {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 80px);
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 .main-div {
-  width:100%
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
 }
 
 .title {
@@ -868,13 +883,6 @@ export default {
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* 新增布局样式 */
-.main-layout {
-  display: flex;
-  min-height: calc(100vh - 80px);
-  width:100%;
-  margin-top: 80px;
-}
 
 .sidebar-nav {
   width: 280px;
@@ -936,8 +944,6 @@ export default {
   background: #9C27B0;
 }
 
-
-
 .catalog {
   text-align: left;
   font-size: 1.5em;
@@ -945,7 +951,7 @@ export default {
   margin-bottom: 20px;
 }
 
-/* 弹窗样式统一化 */
+/* 弹窗样式统一化 - 修改点：提高z-index */
 .dialog-overlay {
   position: fixed;
   top: 0;
@@ -956,7 +962,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 9999; /* 修改点：提高弹窗层级 */
 }
 
 .dialog-content {
@@ -966,7 +972,7 @@ export default {
   min-width: 300px;
   max-width: 500px;
   text-align: center;
-  z-index: 1000;
+  z-index: 10000; /* 修改点：提高弹窗内容层级 */
   position: relative;
 }
 
@@ -1039,28 +1045,6 @@ export default {
   flex-direction: column;
   align-items: center;
   animation: popupFade 2s ease-in-out forwards;
-}
-
-.change-popup-auto {
-  border-radius: 15px;
-  padding: 25px;
-  text-align: center;
-  z-index: 10000;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  min-width: 200px;
-  animation: changePopupFade 2s ease-in-out forwards;
-}
-
-.continue-popup-auto {
-  border-radius: 15px;
-  padding: 25px;
-  text-align: center;
-  z-index: 10000;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  min-width: 200px;
-  animation: continuePopupFade 2s ease-in-out forwards;
 }
 
 .change-image-small,
