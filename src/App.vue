@@ -846,7 +846,7 @@ export default {
   margin: 0;
   width: 100%;
   padding-top: 80px; /* 为固定标题留出空间 */
-  padding-left: 280px; /* 为侧边栏留出空间 */
+  padding-left: 250px; /* 为侧边栏留出空间 */
 }
 
 .main-layout {
@@ -885,7 +885,7 @@ export default {
 
 
 .sidebar-nav {
-  width: 280px;
+  width: 250px;
   background: #f8f9fa;
   border-right: 1px solid #dee2e6;
   padding: 20px;
@@ -938,10 +938,14 @@ export default {
 
 .upload-btn {
   background: #673AB7;
+  padding: 8px 16px;
+
 }
 
 .bell-btn {
   background: #9C27B0;
+  padding: 8px 16px;
+
 }
 
 .catalog {
@@ -1067,12 +1071,6 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-.mode-buttons .hand-mode-btn,
-.mode-buttons .change-mode-btn {
-  width: 100%;
-  margin-right: 0;
 }
 
 .hand-mode-btn, .change-mode-btn {
