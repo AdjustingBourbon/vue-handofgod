@@ -2,7 +2,7 @@
   <div class="app-container">
     <!-- 固定标题区域 -->
     <div class="title-section">
-      <h1 class="title" @click="showInstructions" style="cursor: pointer;">SFTH春节联欢会！线上即兴游戏工具ⓘ</h1>
+      <h1 class="title" @click="showInstructions" style="cursor: pointer;">SFTH春节联欢会！ⓘ</h1>
     </div>
 
     <!-- 主体布局：左侧导航栏 + 右侧内容区 -->
@@ -125,6 +125,7 @@
             border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s;
+            width: 60px;
           "
             >
               添加
@@ -846,7 +847,7 @@ export default {
   margin: 0;
   width: 100%;
   padding-top: 80px; /* 为固定标题留出空间 */
-  padding-left: 250px; /* 为侧边栏留出空间 */
+  padding-left: 210px; /* 为侧边栏留出空间 */
 }
 
 .main-layout {
@@ -885,7 +886,7 @@ export default {
 
 
 .sidebar-nav {
-  width: 250px;
+  width: 210px;
   background: #f8f9fa;
   border-right: 1px solid #dee2e6;
   padding: 20px;

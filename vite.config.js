@@ -1,20 +1,22 @@
-import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vueDevTools from 'vite-plugin-vue-devtools'
+import path from 'path'
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueDevTools(),
-  ],
+  // 核心配置：base 必须等于仓库名，结尾带斜杠（适配GitHub Pages项目站点）
+  base: '/vue-handofgod/',
+  plugins: [vue()],
   resolve: {
+    // 可选：配置路径别名（若你项目用到了@，需保留；没用到可删除）
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    },
+      '@': path.resolve(__dirname, 'src')
+    }
   },
-  base: './',
-  assetsInclude: ['**/*.wav']
+  build: {
+    // 可选：确保打包输出目录为dist（Vite默认值，显式声明更清晰）
+    outDir: 'dist',
+    // 可选：关闭生产环境sourcemap，减少文件体积，避免额外404
+    sourcemap: false
+  }
 })
