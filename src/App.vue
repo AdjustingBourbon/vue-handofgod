@@ -11,9 +11,9 @@
       <nav class="sidebar-nav" :class="{ 'collapsed': sidebarCollapsed }">
         <!-- 收起/展开按钮 -->
         <button
-          @click="toggleSidebar"
-          class="sidebar-toggle-btn"
-          :title="sidebarCollapsed ? '展开侧边栏' : '收起侧边栏'"
+            @click="toggleSidebar"
+            class="sidebar-toggle-btn"
+            :title="sidebarCollapsed ? '展开侧边栏' : '收起侧边栏'"
         >
           {{ sidebarCollapsed ? '▶' : '◀' }}
         </button>
@@ -69,22 +69,22 @@
       <div class="main-content">
         <!-- 游戏名单区域 -->
         <div class="main-div" style="width: 100%; max-width: 100%;">
-      <h2 class="catalog" style="margin-bottom: 15px;">游戏名单</h2>
+          <h2 class="catalog" style="margin-bottom: 15px;">游戏名单</h2>
 
-      <div style="
+          <div style="
         margin: 15px 0;
         display: flex;
         gap: 10px;
         align-items: flex-start;
       ">
-        <div style="position: relative; flex-grow: 1;">
-          <input
-              v-model="newName"
-              @keyup.enter="handleEnter"
-              @input="handleInput"
-              @focus="handleFocus"
-              placeholder="手动输入/搜索已导入名单"
-              style="
+            <div style="position: relative; flex-grow: 1;">
+              <input
+                  v-model="newName"
+                  @keyup.enter="handleEnter"
+                  @input="handleInput"
+                  @focus="handleFocus"
+                  placeholder="手动输入/搜索已导入名单"
+                  style="
               width: 100%;
               padding: 8px;
               border: 1px solid #ccc;
@@ -232,8 +232,6 @@
                 <button
                     v-if="handMode"
                     @click.stop="eliminatePerson(index)"
-                    @touchstart.stop
-                    @touchend.stop
                     class="action-btn eliminate-btn"
                     style="
                 padding: 6px 12px;
@@ -253,8 +251,6 @@
                 <button
                     v-if="changeMode"
                     @click.stop="showChangePopupFunc(index)"
-                    @touchstart.stop
-                    @touchend.stop
                     class="action-btn change-btn"
                     style="
                 padding: 6px 12px;
@@ -274,8 +270,6 @@
                 <button
                     v-if="changeMode"
                     @click.stop="showContinuePopupFunc(index)"
-                    @touchstart.stop
-                    @touchend.stop
                     class="action-btn continue-btn"
                     style="
                 padding: 6px 12px;
@@ -294,8 +288,6 @@
                 <button
                     v-if="!handMode && !changeMode"
                     @click.stop="removePerson(index)"
-                    @touchstart.stop
-                    @touchend.stop
                     class="action-btn delete-btn"
                     style="
                 padding: 6px 12px;
