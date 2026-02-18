@@ -204,7 +204,6 @@
               transition: all 0.3s;
               position: relative;
               cursor: pointer;
-              touch-action: pan-y;
             "
                   :style="{
               background: index === currentIndex ? '#fff9c4' : '#f8f8f8',
@@ -233,7 +232,7 @@
                 <button
                     v-if="handMode"
                     @click.stop="eliminatePerson(index)"
-                    @touchstart.stop.prevent
+                    @touchstart.stop
                     @touchend.stop
                     class="action-btn eliminate-btn"
                     style="
@@ -245,7 +244,6 @@
                 background: #ff8800;
                 color: white;
                 margin-right: 8px;
-                touch-action: manipulation;
               "
                 >
                   淘汰
@@ -255,7 +253,7 @@
                 <button
                     v-if="changeMode"
                     @click.stop="showChangePopupFunc(index)"
-                    @touchstart.stop.prevent
+                    @touchstart.stop
                     @touchend.stop
                     class="action-btn change-btn"
                     style="
@@ -267,7 +265,6 @@
                 background: #9C27B0;
                 color: white;
                 margin-right: 8px;
-                touch-action: manipulation;
               "
                 >
                   换！
@@ -277,7 +274,7 @@
                 <button
                     v-if="changeMode"
                     @click.stop="showContinuePopupFunc(index)"
-                    @touchstart.stop.prevent
+                    @touchstart.stop
                     @touchend.stop
                     class="action-btn continue-btn"
                     style="
@@ -288,7 +285,6 @@
                 transition: all 0.3s;
                 background: #4CAF50;
                 color: white;
-                touch-action: manipulation;
               "
                 >
                   继续
@@ -298,7 +294,7 @@
                 <button
                     v-if="!handMode && !changeMode"
                     @click.stop="removePerson(index)"
-                    @touchstart.stop.prevent
+                    @touchstart.stop
                     @touchend.stop
                     class="action-btn delete-btn"
                     style="
@@ -309,7 +305,6 @@
                 transition: all 0.3s;
                 background: #ff4444;
                 color: white;
-                touch-action: manipulation;
               "
                 >
                   删除
