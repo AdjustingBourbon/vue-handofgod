@@ -1,0 +1,547 @@
+/* ==========================================
+   春节主题样式 - 红金配色方案
+   ========================================== */
+
+/* 颜色变量定义 */
+:root {
+  /* 主色调 - 中国红 */
+  --festival-red-primary: #dc3545;
+  --festival-red-secondary: #c82333;
+  --festival-red-light: #e74c5c;
+  --festival-red-dark: #bd2130;
+
+  /* 金色系 */
+  --festival-gold-primary: #ffc107;
+  --festival-gold-secondary: #e0a800;
+  --festival-gold-light: #ffd54f;
+  --festival-gold-dark: #d39e00;
+
+  /* 装饰色 */
+  --festival-accent-red: #ff6b6b;
+  --festival-accent-gold: #ffd700;
+
+  /* 背景色 */
+  --festival-bg-primary: #fff8f0;
+  --festival-bg-secondary: #fff0e6;
+  --festival-bg-accent: #ffe5d9;
+
+  /* 文字颜色 */
+  --festival-text-primary: #8b0000;
+  --festival-text-secondary: #a52a2a;
+  --festival-text-light: #d2691e;
+
+  /* 装饰元素 */
+  --festival-border-gold: #ffd700;
+  --festival-shadow-red: rgba(220, 53, 69, 0.3);
+  --festival-shadow-gold: rgba(255, 193, 7, 0.4);
+}
+
+/* 整体背景和基础样式 */
+body {
+  background: linear-gradient(135deg, var(--festival-bg-primary) 0%, var(--festival-bg-secondary) 100%) fixed;
+  font-family: 'Microsoft YaHei', 'SimHei', Arial, sans-serif;
+}
+
+#app {
+  background: transparent;
+}
+
+/* 标题区域样式 */
+.title-section {
+  background: rgb(255, 203, 168) !important;
+  box-shadow: 0 4px 15px var(--festival-shadow-red);
+  border-bottom: 3px solid var(--festival-gold-primary);
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.title-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('@/assets/picture/SFTH_Four.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(3px);
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.title {
+  color: red !important;
+  /*text-shadow: 2px 2px 4px gold;*/
+  text-shadow:
+          0 0 2px #FFD700,
+          0 0 2px #FFD700,
+          0 0 2px #FFD700,
+            /* 但这种方法边缘不够锐利 */
+
+            /* 更推荐：明确方向偏移 */
+          -2px 0 0 #FFD700, 2px 0 0 #FFD700,
+          0 -2px 0 #FFD700, 0 2px 0 #FFD700,
+          -2px -2px 0 #FFD700, 2px -2px 0 #FFD700,
+          -2px 2px 0 #FFD700, 2px 2px 0 #FFD700;
+  font-weight: bold;
+  letter-spacing: 2px;
+  background: linear-gradient(to right, white, var(--festival-gold-light));
+  -webkit-background-clip: text;
+  /*-webkit-text-fill-color: transparent;*/
+  background-clip: text;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 15px 0;
+  text-align: center;
+  font-size: 2.5em;
+}
+
+/* 侧边栏导航样式 */
+.sidebar-nav {
+  background: linear-gradient(180deg, var(--festival-bg-primary) 0%, var(--festival-bg-secondary) 100%);
+  border-right: 2px solid var(--festival-border-gold);
+  box-shadow: 3px 0 10px var(--festival-shadow-gold);
+}
+
+/* 左侧游戏控制区*/
+.sidebar-nav {
+  background: rgb(255, 203, 168) !important;
+  border-right: 2px solid var(--festival-border-gold);
+  box-shadow: 3px 0 10px var(--festival-shadow-gold);
+}
+
+.nav-title {
+  color: var(--festival-red-primary) !important;
+  border-bottom: 3px solid var(--festival-gold-primary);
+  text-align: center;
+  font-weight: bold;
+  position: relative;
+}
+
+.nav-title::before {
+  content: "🏮";
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nav-title::after {
+  content: "🏮";
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 导航按钮统一样式 */
+.nav-btn {
+  background: linear-gradient(135deg, var(--festival-red-primary), var(--festival-red-secondary)) !important;
+  border: 2px solid var(--festival-gold-primary);
+  border-radius: 8px !important;
+  color: white !important;
+  font-weight: bold;
+  box-shadow: 0 3px 8px var(--festival-shadow-red);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.nav-btn:hover::before {
+  left: 100%;
+}
+
+.nav-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--festival-shadow-red);
+  border-color: var(--festival-gold-light);
+}
+
+/* 特殊按钮样式 */
+.hand-mode-btn {
+  background: linear-gradient(135deg, #000bf6, #00376e) !important;
+}
+
+.change-mode-btn {
+  background: linear-gradient(135deg, #9C27B0, #7B1FA2) !important;
+}
+
+.bell-btn {
+  background: linear-gradient(135deg, var(--festival-gold-primary), var(--festival-gold-secondary)) !important;
+  color: var(--festival-text-primary) !important;
+}
+
+.upload-btn {
+  background: linear-gradient(135deg, #673AB7, #512DA8) !important;
+}
+
+/* 主内容区域 */
+.main-content {
+  background: transparent;
+}
+
+.catalog {
+  color: var(--festival-red-primary) !important;
+  text-align: center !important;
+  font-weight: bold;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.catalog::before,
+.catalog::after {
+  content: "🎉";
+  margin: 0 10px;
+}
+
+/* 输入框样式 */
+input[type="text"] {
+  border: 2px solid var(--festival-gold-primary) !important;
+  border-radius: 6px !important;
+  background: var(--festival-bg-primary) !important;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: var(--festival-red-primary) !important;
+  box-shadow: 0 0 0 3px var(--festival-shadow-red);
+  outline: none;
+}
+
+/* 搜索下拉框 */
+.search-dropdown {
+  border: 2px solid var(--festival-gold-primary) !important;
+  border-top: none !important;
+  background: var(--festival-bg-primary) !important;
+  border-radius: 0 0 6px 6px !important;
+}
+
+.search-item:hover {
+  background: var(--festival-bg-accent) !important;
+  color: var(--festival-red-primary);
+}
+
+/* 动作按钮样式 */
+.action-buttons button {
+  border: 2px solid var(--festival-gold-primary) !important;
+  border-radius: 6px !important;
+  font-weight: bold !important;
+  box-shadow: 0 2px 6px var(--festival-shadow-gold);
+  transition: all 0.3s ease;
+}
+
+.random-btn {
+  background: linear-gradient(135deg, var(--festival-gold-primary), var(--festival-gold-secondary)) !important;
+  color: var(--festival-text-primary) !important;
+}
+
+.move-btn {
+  background: linear-gradient(135deg, #4CAF50, #388E3C) !important;
+}
+
+.action-buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--festival-shadow-gold);
+  border-color: var(--festival-red-primary) !important;
+}
+
+/* 人员列表项 */
+.person-item {
+  background: var(--festival-bg-primary) !important;
+  border: 2px solid var(--festival-gold-primary) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 3px 10px var(--festival-shadow-gold);
+  transition: all 0.3s ease !important;
+}
+
+.person-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px var(--festival-shadow-red);
+  border-color: var(--festival-red-primary) !important;
+}
+
+.highlight {
+  background: linear-gradient(135deg, var(--festival-gold-light), var(--festival-bg-accent)) !important;
+  border: 3px solid var(--festival-red-primary) !important;
+  box-shadow: 0 0 20px var(--festival-shadow-red) !important;
+  animation: highlight-pulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes highlight-pulse {
+  from {
+    box-shadow: 0 0 15px var(--festival-shadow-red);
+  }
+  to {
+    box-shadow: 0 0 25px var(--festival-shadow-red), 0 0 35px var(--festival-shadow-gold);
+  }
+}
+
+.checkmark {
+  color: var(--festival-red-primary) !important;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.name {
+  color: var(--festival-text-primary) !important;
+  font-weight: 500;
+}
+
+/* 操作按钮样式 */
+.action-btn {
+  border: none !important;
+  border-radius: 5px !important;
+  font-weight: bold !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.3s ease !important;
+}
+
+.eliminate-btn {
+  background: linear-gradient(135deg, #ff8800, #ff6600) !important;
+}
+
+.change-btn {
+  background: linear-gradient(135deg, #9C27B0, #7B1FA2) !important;
+}
+
+.continue-btn {
+  background: linear-gradient(135deg, #4CAF50, #388E3C) !important;
+}
+
+.delete-btn {
+  background: linear-gradient(135deg, #ff4444, #cc0000) !important;
+}
+
+.action-btn:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 已淘汰名单 */
+.eliminated-list {
+  background: var(--festival-bg-secondary) !important;
+  border: 2px dashed var(--festival-gold-primary) !important;
+  border-radius: 8px !important;
+  padding: 15px !important;
+}
+
+.eliminated-item {
+  color: var(--festival-text-secondary) !important;
+  background: var(--festival-bg-accent) !important;
+  border-radius: 5px !important;
+  margin-bottom: 5px !important;
+  padding: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+.eliminated-item:hover {
+  background: var(--festival-gold-light) !important;
+  color: var(--festival-red-primary) !important;
+}
+
+/* 弹窗样式 */
+.dialog-overlay {
+  background: rgba(139, 0, 0, 0.6) !important;
+}
+
+.dialog-content {
+  background: linear-gradient(135deg, var(--festival-bg-primary), var(--festival-bg-secondary)) !important;
+  border: 3px solid var(--festival-gold-primary) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px var(--festival-shadow-red) !important;
+  position: relative !important;
+}
+
+.dialog-content::before {
+  content: "🎊";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2em;
+  z-index: 10001;
+}
+
+.instructions-dialog {
+  border-color: var(--festival-red-primary) !important;
+}
+
+.file-input {
+  border: 2px solid var(--festival-gold-primary) !important;
+  border-radius: 6px !important;
+  background: var(--festival-bg-primary) !important;
+  transition: all 0.3s ease !important;
+}
+
+.file-input:focus {
+  border-color: var(--festival-red-primary) !important;
+  box-shadow: 0 0 0 3px var(--festival-shadow-red) !important;
+  outline: none !important;
+}
+
+.help-link a {
+  color: var(--festival-red-primary) !important;
+  text-decoration: underline !important;
+  font-weight: 500 !important;
+}
+
+.help-link a:hover {
+  color: var(--festival-gold-primary) !important;
+}
+
+.close-btn {
+  background: linear-gradient(135deg, var(--festival-red-primary), var(--festival-red-secondary)) !important;
+  border: 2px solid var(--festival-gold-primary) !important;
+  border-radius: 6px !important;
+  color: white !important;
+  font-weight: bold !important;
+  padding: 8px 20px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.close-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px var(--festival-shadow-red) !important;
+  border-color: var(--festival-gold-light) !important;
+}
+
+/* 消息弹窗 */
+.message-popup {
+  border: 2px solid var(--festival-gold-primary) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 5px 15px var(--festival-shadow-gold) !important;
+  font-weight: bold !important;
+  color: white !important;
+}
+
+/* 特效弹窗 */
+.highlight-popup,
+.change-popup-auto,
+.continue-popup-auto {
+  background: linear-gradient(135deg, var(--festival-red-primary), var(--festival-red-dark)) !important;
+  border: 3px solid var(--festival-gold-primary) !important;
+  border-radius: 15px !important;
+  box-shadow: 0 0 30px var(--festival-shadow-red) !important;
+  /*animation: popup-entrance 0.5s ease-out, popup-float 3s ease-in-out infinite !important;*/
+}
+
+
+.continue-popup-auto{
+  background: rgba(76, 175, 80, 0.8)!important;;
+}
+
+
+@keyframes popup-entrance {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(-10deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes popup-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+.change-text-auto,
+.continue-text-auto {
+  color: white !important;
+  font-weight: bold !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+  font-size: 1.8em !important;
+}
+
+.change-image-small,
+.continue-image-small {
+  border: 3px solid var(--festival-gold-primary) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 5px 15px var(--festival-shadow-gold) !important;
+}
+
+/* 装饰性元素 */
+.app-container::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg,
+    var(--festival-red-primary),
+    var(--festival-gold-primary),
+    var(--festival-red-primary),
+    var(--festival-gold-primary));
+  z-index: 999;
+  animation: border-animation 3s ease-in-out infinite;
+}
+
+@keyframes border-animation {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2em !important;
+  }
+
+  .nav-title {
+    font-size: 1.1em !important;
+  }
+
+  .person-item {
+    padding: 12px !important;
+  }
+
+  .action-btn {
+    padding: 4px 8px !important;
+    font-size: 0.9em !important;
+  }
+}
+
+/* 打印样式优化 */
+@media print {
+  body {
+    background: white !important;
+  }
+
+  .title-section {
+    background: #dc3545 !important;
+    color: white !important;
+  }
+
+  .person-item {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
+}

@@ -125,7 +125,7 @@
             border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s;
-            width: 60px;
+            width: 70px;
           "
             >
               添加
@@ -867,14 +867,13 @@ export default {
   height: 100%;
   max-width: 100%;
 }
-
+/*
 .title {
   text-align: center;
   font-size: 2.5em;
   color: #4CAF50;
   margin: 0;
   padding: 15px 0;
-  background: white;
   border-bottom: 2px solid #ddd;
   position: fixed;
   top: 0;
@@ -883,7 +882,7 @@ export default {
   z-index: 1000;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
-
+*/
 
 .sidebar-nav {
   width: 210px;
@@ -906,7 +905,6 @@ export default {
   font-size: 1.3em;
   color: #4CAF50;
   margin-bottom: 15px;
-  padding-bottom: 8px;
   border-bottom: 2px solid #e9ecef;
 }
 
@@ -1036,13 +1034,12 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(76, 175, 80, 0.8);
   color: white;
   padding: 20px 30px;
   border-radius: 12px;
   font-size: 24px;
   pointer-events: none;
-  z-index: 10000;
+  z-index: 1000;
   justify-content: center;
   min-width: 120px;
   opacity: 0.8;
@@ -1050,6 +1047,17 @@ export default {
   flex-direction: column;
   align-items: center;
   animation: popupFade 2s ease-in-out forwards;
+}
+.highlight-popup{
+  background: rgba(76, 175, 80, 0.8);
+}
+
+.continue-popup-auto{
+  background: rgba(76, 175, 80, 0.8);
+}
+.change-popup-auto{
+  background: rgba(76, 175, 80, 0.8);
+  z-index: 10000;
 }
 
 .change-image-small,
