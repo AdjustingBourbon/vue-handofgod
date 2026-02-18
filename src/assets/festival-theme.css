@@ -115,7 +115,9 @@ body {
   border-right: 2px solid var(--festival-border-gold);
   box-shadow: 3px 0 10px var(--festival-shadow-gold);
 }
-
+.sidebar-toggle-btn{
+  background: rgb(250, 135, 61) !important;
+}
 .nav-title {
   color: var(--festival-red-primary) !important;
   border-bottom: 3px solid var(--festival-gold-primary);

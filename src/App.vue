@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-container" :class="{ 'sidebar-collapsed': sidebarCollapsed }">
     <!-- 固定标题区域 -->
     <div class="title-section">
       <h1 class="title" @click="showInstructions" style="cursor: pointer;">SFTH春节联欢会！ⓘ</h1>
@@ -8,7 +8,15 @@
     <!-- 主体布局：左侧导航栏 + 右侧内容区 -->
     <div class="main-layout">
       <!-- 左侧导航栏 -->
-      <nav class="sidebar-nav">
+      <nav class="sidebar-nav" :class="{ 'collapsed': sidebarCollapsed }">
+        <!-- 收起/展开按钮 -->
+        <button
+          @click="toggleSidebar"
+          class="sidebar-toggle-btn"
+          :title="sidebarCollapsed ? '展开侧边栏' : '收起侧边栏'"
+        >
+          {{ sidebarCollapsed ? '▶' : '◀' }}
+        </button>
         <!-- 游戏模式控制区 -->
         <div class="nav-section">
           <h2 class="nav-title">游戏模式</h2>
@@ -445,6 +453,7 @@ export default {
       currentIndex: 0,
       handMode: false,
       changeMode: false,
+      sidebarCollapsed: false,
       nextId: 1,
       randomButtonEnabled: true,
       selectedCommonName: '',
@@ -801,6 +810,9 @@ export default {
         console.warn('音频播放失败:', error);
       }
     },
+    toggleSidebar() {
+      this.sidebarCollapsed = !this.sidebarCollapsed;
+    },
   },
   mounted() {
     this.bellAudio = this.$refs.bellAudio
@@ -848,6 +860,11 @@ export default {
   width: 100%;
   padding-top: 80px; /* 为固定标题留出空间 */
   padding-left: 210px; /* 为侧边栏留出空间 */
+  transition: padding-left 0.3s ease;
+}
+
+.app-container.sidebar-collapsed {
+  padding-left: 50px;
 }
 
 .main-layout {
@@ -895,6 +912,23 @@ export default {
   bottom: 0;
   overflow-y: auto;
   box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.sidebar-nav.collapsed {
+  width: 50px;
+  padding: 20px 10px;
+}
+
+.sidebar-nav.collapsed .nav-section {
+  display: none;
+}
+
+.sidebar-nav.collapsed .sidebar-toggle-btn {
+  width: 20px;
+  height: 80px;
+  font-size: 12px;
 }
 
 .nav-section {
@@ -921,6 +955,30 @@ export default {
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: left;
+}
+
+.sidebar-toggle-btn {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  width: 15px;
+  height: 330px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 101;
+}
+
+.sidebar-toggle-btn:hover {
+  background: #45a049;
+  transform: scale(1.1);
 }
 
 .nav-btn:hover:not(:disabled) {
