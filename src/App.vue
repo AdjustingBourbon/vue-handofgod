@@ -88,7 +88,7 @@
         gap: 10px;
         align-items: flex-start;
       ">
-            <div style="position: relative; flex-grow: 1;">
+            <div class="people-select">
               <input
                   v-model="newName"
                   @keyup.enter="handleEnter"
@@ -1005,24 +1005,28 @@ export default {
 .letter-textarea:focus {
   outline: none;
   border-color: #45a049;
-  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+  /*box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);*/
 }
 
 .letter-textarea::placeholder {
   color: #999;
 }
 
-.letter-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
+/* 美化搜索下拉框滚动条样式 */
+.letter-textarea::-webkit-scrollbar {
+  width: 10px;
 }
 
-.letter-actions {
-  display: flex;
-  gap: 10px;
-  margin-left: auto;
+.letter-textarea::-webkit-scrollbar-track {
+  background: #c7ffb4;
+  border-radius: 6px;
+  /*box-shadow: inset 0 0 4px rgba(0,0,0,0.1);*/
+}
+
+.letter-textarea::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4CAF50, #45a049);
+  border-radius: 6px;
+  transition: background 0.3s ease;
 }
 
 .letter-action-btn {
@@ -1334,7 +1338,51 @@ export default {
   flex-direction: column;
   gap: 10px;
   margin-top: 10px;
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
+  padding-right: 5px;
 }
+
+/* 美化滚动条样式 */
+.people-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.people-list::-webkit-scrollbar-track {
+  background: #c8ffb4;
+  border-radius: 4px;
+  /*box-shadow: inset 0 0 4px rgba(0,0,0,0.1);*/
+}
+
+.people-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4CAF50, #45a049);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+  /*box-shadow: 0 2px 6px rgba(0,0,0,0.3), 0 1px 2px rgba(255,255,255,0.2) inset;*/
+}
+
+.people-select{
+  position: relative; flex-grow: 1;
+}
+
+/* 美化滚动条样式 */
+.people-select::-webkit-scrollbar {
+  width: 10px;
+}
+
+.people-select::-webkit-scrollbar-track {
+  background: #c8ffb4;
+  border-radius: 4px;
+  /*box-shadow: inset 0 0 4px rgba(0,0,0,0.1);*/
+}
+
+.people-select::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4CAF50, #45a049);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+  /*box-shadow: 0 2px 6px rgba(0,0,0,0.3), 0 1px 2px rgba(255,255,255,0.2) inset;*/
+}
+
 
 .person-item {
   display: flex;
@@ -1487,7 +1535,28 @@ button:disabled {
   overflow-y: auto;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding-right: 5px;
 }
+
+/* 美化搜索下拉框滚动条样式 */
+.search-dropdown::-webkit-scrollbar {
+  width: 8px;
+}
+
+.search-dropdown::-webkit-scrollbar-track {
+  background: #c7ffb4;
+  border-radius: 2px;
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.1);
+}
+
+.search-dropdown::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4CAF50, #45a049);
+  border-radius: 2px;
+  transition: background 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3), 0 1px 2px rgba(255,255,255,0.2) inset;
+}
+
+
 
 .search-item {
   padding: 8px 12px;

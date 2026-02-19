@@ -24,7 +24,7 @@
   --festival-bg-primary: #fffbf0;
 
   --festival-bg-secondary: #fff8e6;
-  --festival-bg-accent: #ffe5d9;
+  --festival-bg-accent: #fff6d9;
 
   /* 文字颜色 */
   --festival-text-primary: #8b0000;
@@ -262,7 +262,7 @@ input[type="text"]:focus {
 
 /* 搜索下拉框 */
 .search-dropdown {
-  border: 2px solid var(--festival-gold-primary) !important;
+  /*border: 2px solid var(--festival-gold-light) !important;*/
   border-top: none !important;
   background: var(--festival-bg-primary) !important;
   border-radius: 0 0 6px 6px !important;
@@ -273,6 +273,44 @@ input[type="text"]:focus {
   color: var(--festival-red-primary);
 }
 
+/* 美化搜索下拉框滚动条样式 */
+.search-dropdown::-webkit-scrollbar {
+  width: 8px;
+}
+
+.search-dropdown::-webkit-scrollbar-track {
+  background: var(--festival-bg-accent) !important;
+}
+
+.search-dropdown::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--festival-gold-light),  var(--festival-gold-light)) !important;
+}
+
+/* 美化人员名单滚动条样式 */
+.people-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.people-list::-webkit-scrollbar-track {
+  background: var(--festival-bg-accent) !important;
+}
+
+.people-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--festival-gold-light),  var(--festival-gold-light)) !important;
+}
+
+/* 美化搜索下拉框滚动条样式 */
+.letter-textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.letter-textarea::-webkit-scrollbar-track {
+  background: var(--festival-bg-accent) !important;
+}
+
+.letter-textarea::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--festival-gold-light),  var(--festival-gold-light)) !important;
+}
 /* 动作按钮样式 */
 .action-buttons button {
   border: 2px solid var(--festival-gold-primary) !important;
