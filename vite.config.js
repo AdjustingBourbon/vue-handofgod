@@ -5,7 +5,7 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   // 核心配置：base 必须等于仓库名，结尾带斜杠（适配GitHub Pages项目站点）
-  base: '/',
+  base: '/',//main分支保留'/'，gh-pages分支使用'/vue-handofgod/'
   plugins: [vue()],
   resolve: {
     // 可选：配置路径别名（若你项目用到了@，需保留；没用到可删除）
