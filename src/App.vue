@@ -1005,7 +1005,7 @@ export default {
 .letter-textarea:focus {
   outline: none;
   border-color: #45a049;
-  /*box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);*/
+  box-shadow: 0 0 0 2px rgba(153, 154, 153, 0.2);
 }
 
 .letter-textarea::placeholder {
