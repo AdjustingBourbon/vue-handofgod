@@ -28,7 +28,7 @@
               backgroundColor: handMode ? '#f44336' : '#2196F3'
             }"
             >
-              {{ handMode ? '退出上帝之手模式' : '上帝之手' }}
+              {{ handMode ? '退出上帝之手模式' : '上帝之手HandofGod' }}
             </button>
 
             <button
@@ -39,6 +39,16 @@
             }"
             >
               {{ changeMode ? '退出Change模式' : '换！Change' }}
+            </button>
+
+            <button
+                @click="toggleLetterMode"
+                class="letter-mode-btn nav-btn"
+                :style="{
+              backgroundColor: letterMode ? '#f44336' : '#FF9800'
+            }"
+            >
+              {{ letterMode ? '退出一封信模式' : '一封信Letter' }}
             </button>
           </div>
         </div>
@@ -68,8 +78,9 @@
       <!-- 右侧主内容区 -->
       <div class="main-content">
         <!-- 游戏名单区域 -->
-        <div class="main-div" style="width: 100%; max-width: 100%;">
-          <h2 class="catalog" style="margin-bottom: 15px;">游戏名单</h2>
+        <div class="game-area">
+          <div class="people-section" :class="{ 'with-letter': letterMode }">
+            <h2 class="catalog" style="margin-bottom: 15px;">游戏名单</h2>
 
           <div style="
         margin: 15px 0;
@@ -83,7 +94,8 @@
                   @keyup.enter="handleEnter"
                   @input="handleInput"
                   @focus="handleFocus"
-                  placeholder="手动输入/搜索已导入名单"
+                  @blur="handleBlur"
+                  placeholder="手动输入名单/搜索已导入名单"
                   style="
               width: 100%;
               padding: 8px;
@@ -183,6 +195,7 @@
               v-model="visiblePeople"
               @end="onDragEnd"
               item-key="id"
+              :delay="50"
               class="people-list"
               style="
           display: flex;
@@ -305,6 +318,35 @@
             </template>
           </draggable>
         </div>
+
+        <!-- 信件输入区域 -->
+        <div v-if="letterMode" style=" flex: 1;  min-width: 300px;  display: flex;  flex-direction: column;">
+          <div style="  align-items: center;  margin-bottom: 10px;">
+            <h2 class="catalog" style="margin-bottom: 10px;">信件内容</h2>
+            <div style="display: flex;gap: 10px;justify-content: flex-end;">
+              <button
+                @click="copyLetter"
+                class="letter-action-btn copy-btn"
+                title="复制信件内容"
+              >
+                📋 复制
+              </button>
+              <button
+                @click="downloadLetter"
+                class="letter-action-btn download-btn"
+                title="下载信件"
+              >
+                ⬇️ 下载
+              </button>
+            </div>
+          </div>
+          <textarea
+            v-model="letterContent"
+            placeholder="请输入信件内容..."
+            class="letter-textarea"
+          ></textarea>
+        </div>
+      </div>
 
         <!-- 已淘汰名单 -->
         <div v-if="handMode && eliminatedPeople.length" class="eliminated-list">
@@ -453,11 +495,12 @@ export default {
       currentIndex: 0,
       handMode: false,
       changeMode: false,
+      letterMode: false,
       sidebarCollapsed: false,
       nextId: 1,
       randomButtonEnabled: true,
       selectedCommonName: '',
-      commonNames: ['John', 'Jane', 'Doe', 'Smith', 'Bob', 'Alice','Tom','Jerry','Mike','Keith','Kate','Karl','Kavin','Jam'],
+      commonNames: ['Tom', 'Luke', 'AJ', 'Sam', 'Viola', 'Spolin','Keith','Johnstone'],
       commonNameSelect: false,
       showDialog: false,
       showHelpImage: false,
@@ -474,6 +517,7 @@ export default {
       popupTimer: null,
       showChangePopup: false,
       showContinuePopup: false,
+      letterContent: '',
     }
   },
   computed: {
@@ -553,6 +597,7 @@ export default {
       this.currentIndex = 0;
       if (this.handMode) {
         this.changeMode = false;
+        this.letterMode = false;
       }
     },
     toggleChangeMode() {
@@ -560,6 +605,15 @@ export default {
       this.currentIndex = 0;
       if (this.changeMode) {
         this.handMode = false;
+        this.letterMode = false;
+      }
+    },
+    toggleLetterMode() {
+      this.letterMode = !this.letterMode;
+      this.currentIndex = 0;
+      if (this.letterMode) {
+        this.handMode = false;
+        this.changeMode = false;
       }
     },
     adjustCurrentIndex() {
@@ -758,18 +812,25 @@ export default {
       this.searchIndex = -1;
 
       if (!this.newName) {
-        this.searchResults = this.commonNames.slice(0, 5);
+        this.searchResults = this.commonNames;
         return;
       }
 
       this.searchResults = this.commonNames.filter(name =>
           name.toLowerCase().includes(this.newName.toLowerCase())
-      ).slice(0, 5);
+      );
     },
     handleFocus() {
       if (!this.newName) {
-        this.searchResults = this.commonNames.slice(0, 5);
+        this.searchResults = this.commonNames;
       }
+    },
+    handleBlur() {
+      // 延迟隐藏下拉框，让用户有时间点击下拉项
+      setTimeout(() => {
+        this.searchResults = [];
+        this.searchIndex = -1;
+      }, 200);
     },
     selectSearchResult(name) {
       this.newName = name;
@@ -812,6 +873,39 @@ export default {
     },
     toggleSidebar() {
       this.sidebarCollapsed = !this.sidebarCollapsed;
+    },
+    copyLetter() {
+      if (!this.letterContent.trim()) {
+        this.showTempMessage('信件内容为空，无法复制', 'error');
+        return;
+      }
+
+      navigator.clipboard.writeText(this.letterContent)
+        .then(() => {
+          this.showTempMessage('信件内容已复制到剪贴板');
+        })
+        .catch(err => {
+          console.error('复制失败:', err);
+          this.showTempMessage('复制失败，请手动复制', 'error');
+        });
+    },
+    downloadLetter() {
+      if (!this.letterContent.trim()) {
+        this.showTempMessage('信件内容为空，无法下载', 'error');
+        return;
+      }
+
+      const blob = new Blob([this.letterContent], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `信件_${new Date().toLocaleDateString('zh-CN')}.txt`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      this.showTempMessage('信件已下载');
     },
   },
   mounted() {
@@ -879,10 +973,86 @@ export default {
   overflow-y: auto;
 }
 
-.main-div {
+.game-area {
+  display: flex;
+  gap: 20px;
   width: 100%;
   height: 100%;
-  max-width: 100%;
+}
+
+.people-section {
+  flex: 1;
+  min-width: 300px;
+  transition: all 0.3s ease;
+}
+
+.people-section.with-letter {
+  flex: 1;
+}
+
+.letter-textarea {
+  flex: 1;
+  min-height: 400px;
+  padding: 15px;
+  border: 2px solid #4CAF50;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+.letter-textarea:focus {
+  outline: none;
+  border-color: #45a049;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.letter-textarea::placeholder {
+  color: #999;
+}
+
+.letter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.letter-actions {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.letter-action-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.copy-btn {
+  background: #2196F3;
+  color: white;
+}
+
+.copy-btn:hover {
+  background: #1976D2;
+  transform: translateY(-1px);
+}
+
+.download-btn {
+  background: #4CAF50;
+  color: white;
+}
+
+.download-btn:hover {
+  background: #388E3C;
+  transform: translateY(-1px);
 }
 /*
 .title {
@@ -927,7 +1097,7 @@ export default {
 
 .sidebar-nav.collapsed .sidebar-toggle-btn {
   width: 20px;
-  height: 80px;
+  height: 120px;
   font-size: 12px;
 }
 
@@ -962,7 +1132,7 @@ export default {
   top: 10px;
   right: 0px;
   width: 15px;
-  height: 330px;
+  height: 390px;
   background: #4CAF50;
   color: white;
   border: none;
@@ -1140,7 +1310,7 @@ export default {
   gap: 10px;
 }
 
-.hand-mode-btn, .change-mode-btn {
+.hand-mode-btn, .change-mode-btn, .letter-mode-btn {
   padding: 8px 16px;
   border: none;
   color: white;

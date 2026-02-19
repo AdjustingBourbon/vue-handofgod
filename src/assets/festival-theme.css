@@ -21,8 +21,9 @@
   --festival-accent-gold: #ffd700;
 
   /* 背景色 */
-  --festival-bg-primary: #fff8f0;
-  --festival-bg-secondary: #fff0e6;
+  --festival-bg-primary: #fffbf0;
+
+  --festival-bg-secondary: #fff8e6;
   --festival-bg-accent: #ffe5d9;
 
   /* 文字颜色 */
@@ -184,6 +185,11 @@ body {
   background: linear-gradient(135deg, #9C27B0, #7B1FA2) !important;
 }
 
+.letter-mode-btn {
+  background: linear-gradient(135deg, #00a3ea, #33a3ff) !important;
+}
+
+
 .bell-btn {
   background: linear-gradient(135deg, var(--festival-gold-primary), var(--festival-gold-secondary)) !important;
   color: var(--festival-text-primary) !important;
@@ -224,6 +230,34 @@ input[type="text"]:focus {
   border-color: var(--festival-red-primary) !important;
   box-shadow: 0 0 0 3px var(--festival-shadow-red);
   outline: none;
+}
+
+/* 信件文本框样式 */
+.letter-textarea {
+  width: 100%;
+  min-height: 200px;
+  padding: 15px;
+  border: 3px solid var(--festival-gold-primary) !important;
+  border-radius: 10px !important;
+  font-family: 'Microsoft YaHei', 'SimHei', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  resize: vertical;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px var(--festival-shadow-gold);
+  background: var(--festival-bg-secondary) !important;
+}
+
+.letter-textarea:focus {
+  border-color: var(--festival-gold-primary) !important;
+  box-shadow: 0 0 0 3px var(--festival-shadow-red), 0 5px 15px var(--festival-shadow-gold);
+  outline: none;
+  background: var(--festival-bg-primary) !important;
+}
+
+.letter-textarea::placeholder {
+  color: var(--festival-text-secondary);
+  font-style: italic;
 }
 
 /* 搜索下拉框 */
