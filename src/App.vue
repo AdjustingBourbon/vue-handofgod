@@ -1546,14 +1546,14 @@ button:disabled {
 .search-dropdown::-webkit-scrollbar-track {
   background: #c7ffb4;
   border-radius: 2px;
-  box-shadow: inset 0 0 4px rgba(0,0,0,0.1);
+  /*box-shadow: inset 0 0 4px rgba(0,0,0,0.1);*/
 }
 
 .search-dropdown::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #4CAF50, #45a049);
   border-radius: 2px;
   transition: background 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3), 0 1px 2px rgba(255,255,255,0.2) inset;
+  /*box-shadow: 0 2px 6px rgba(0,0,0,0.3), 0 1px 2px rgba(255,255,255,0.2) inset;*/
 }
 
 
