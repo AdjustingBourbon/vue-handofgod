@@ -385,7 +385,7 @@
               href="#"
               @click.prevent="showHelp"
           >
-            如何导出腾讯会议成员名单？
+            如何获取腾讯会议成员名单？
           </a>
         </div>
 
