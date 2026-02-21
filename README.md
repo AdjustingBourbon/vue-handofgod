@@ -1,4 +1,4 @@
-# vue-handofgod
+# improv-host
 
 你好呀！我是Adjusting Bourbon，这是一个基于前端Vue3的即兴游戏工具，你可以用它来协助组织线上的即兴游戏！
 
@@ -9,7 +9,7 @@
 2、 针对以下游戏做了特别适配： 
 上帝之手Hand of God（即故事接龙Conducted Story）、叮叮重来Change、一封信Letter，以及其它一系列需要随机或顺序选人的游戏（如电话中心Phonebank、一人一字故事，三头专家、字母表、鸡尾酒会Cocktail Party、思威琪橙汁Switch & Change、左转Pan Left Pan Right）。
 
-演示页面：https://adjustingbourbon.github.io/vue-handofgod/
+演示页面：https://adjustingbourbon.github.io/improv-host/
 
 有任何问题和建议，欢迎联系我！我很愿意根据您的实际需求来完善这个工具，让我们yes and起来！
 
